@@ -1,0 +1,246 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/hotel/query">酒店管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/hotel/init">新建酒店</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i>酒店详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >酒店id:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!hotel.id" disabled>
+                       </div>
+                   </div>
+
+                   <!--名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!hotel.cnName" disabled />
+                       </div>
+                   </div>
+
+                   <!--副标题-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>副标题:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!hotel.subTitle" disabled />
+                       </div>
+                   </div>
+
+                   <!--关键字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>标签:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!hotel.label" disabled />
+                       </div>
+                   </div>
+
+                   <!--酒店大类型-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>酒店大类型:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control" id="type" name="type" onchange="" disabled>
+                               #foreach($e in $fatherList)
+                                   <option value='$e.code' #if($!hotel.type == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--酒店子类型-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>酒店子类型:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control" id="subType" name="subType" onchange="" disabled>
+                               #foreach($e in $subList)
+                                   <option value='$e.code' #if($!hotel.subType == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--酒店类型描述-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>酒店类型描述:</label>
+                       <div class="col-sm-5">
+                           <input type="text" class="form-control"  id="subTypeDesc" name="subTypeDesc"  value="$!hotel.subTypeDesc"
+                                  placeholder="酒店类型描述"
+                                  pattern=".{2,64}" data-pattern-error="其他不能大于64个字符"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--星等级-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>星等级:</label>
+                       <div class="col-sm-10">
+                           <select class="form-control" id="level" name="level" onchange="" disabled>
+                               #foreach($e in $levelList)
+                                   <option value='$e.code' #if($!hotel.level == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--地址-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="address" name="address" value="$!hotel.address" disabled  />
+                           <div class="help-block with-errors"></div>
+                       </div>
+                   </div>
+
+
+                   <!--经度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>经度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="longitude" name="longitude" value="$!hotel.longitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--纬度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>纬度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="latitude" name="latitude" value="$!hotel.latitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--跳转地址
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>跳转地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="jumpUrl" name="jumpUrl" value="$!hotel.jumpUrl" disabled  />
+                           <div class="help-block with-errors"></div>
+                       </div>
+                   </div>-->
+
+                   <!--手机号-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>手机号:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="phone" name="phone" value="$!hotel.phone" disabled  />
+                           <div class="help-block with-errors"></div>
+                       </div>
+                   </div>
+
+                   <!--酒店简介-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>酒店简介:</label>
+                       <div class="col-sm-10">
+                           <textarea class="form-control" id="desc" name="desc" disabled>$!hotel.desc</textarea>
+                           <div class="help-block with-errors"></div>
+                       </div>
+                   </div>
+
+                   <!--banner地址-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>滑动banner图片:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $bannerPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--图片地址-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $picUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--营业时间描述-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>营业时间描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="openTimeDesc" name="openTimeDesc" value="$!hotel.openTimeDesc"
+                                  disabled  />
+                       </div>
+                   </div>
+			 </form>
+            </div>
+			
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyOldVillageNearby" >
+
+    <resultMap id="SyOldVillageNearbyMap" type="com.songyang.tour.pojo.SyOldVillageNearby">
+        <result column="id" property="id" />
+        <result column="village_id" property="villageId" />
+        <result column="scenic_spot_ids" property="scenicSpotIds" />
+        <result column="hotel_ids" property="hotelIds" />
+        <result column="restaurant_ids" property="restaurantIds" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `village_id`,
+        `scenic_spot_ids`,
+        `hotel_ids`,
+        `restaurant_ids`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{villageId},
+        #{scenicSpotIds},
+        #{hotelIds},
+        #{restaurantIds},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="villageId != null">
+            AND `village_id` = #{villageId} 
+        </if>
+        <if test="scenicSpotIds != null">
+            AND `scenic_spot_ids` = #{scenicSpotIds} 
+        </if>
+        <if test="hotelIds != null">
+            AND `hotel_ids` = #{hotelIds} 
+        </if>
+        <if test="restaurantIds != null">
+            AND `restaurant_ids` = #{restaurantIds} 
+        </if>
+        <if test="creator != null">
+            AND `creator` = #{creator} 
+        </if>
+        <if test="createTime != null">
+            AND `create_time` = #{createTime} 
+        </if>
+        <if test="modifier != null">
+            AND `modifier` = #{modifier} 
+        </if>
+        <if test="modifyTime != null">
+            AND `modify_time` = #{modifyTime} 
+        </if>
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.column.columnName} ${item.sortMode.mode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_old_village_nearby 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_old_village_nearby
+        <set>
+            <if test="villageId != null"> `village_id`=#{villageId},</if>
+            <if test="scenicSpotIds != null"> `scenic_spot_ids`=#{scenicSpotIds},</if>
+            <if test="hotelIds != null"> `hotel_ids`=#{hotelIds},</if>
+            <if test="restaurantIds != null"> `restaurant_ids`=#{restaurantIds},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyOldVillageNearbyMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_old_village_nearby
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyOldVillageNearbyMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_old_village_nearby
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_old_village_nearby where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyOldVillageNearbyMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_old_village_nearby
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_old_village_nearby
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

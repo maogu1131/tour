@@ -1,0 +1,16 @@
+<!--预览图片-->
+.min_content {
+    position: absolute;
+    top: -30px;
+    left: auto;
+    right: -270px
+}
+
+.imgbox:hover .popover {
+    display: block;
+    margin-left: 66px;
+}
+
+.imgbox {
+    position: relative;
+}

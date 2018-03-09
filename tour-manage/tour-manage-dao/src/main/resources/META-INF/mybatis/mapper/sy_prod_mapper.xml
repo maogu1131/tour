@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyProd" >
+
+    <resultMap id="SyProdMap" type="com.songyang.tour.pojo.SyProd">
+        <result column="id" property="id" />
+        <result column="merchant_id" property="merchantId" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="status" property="status" />
+        <result column="desc" property="desc" />
+        <result column="level" property="level" />
+        <result column="pic_url" property="picUrl" />
+        <result column="price" property="price" />
+        <result column="total_num" property="totalNum" />
+        <result column="remain_num" property="remainNum" />
+        <result column="send_num" property="sendNum" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `merchant_id`,
+        `name`,
+        `type`,
+        `status`,
+        `desc`,
+        `level`,
+        `pic_url`,
+        `price`,
+        `total_num`,
+        `remain_num`,
+        `send_num`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{merchantId},
+        #{name},
+        #{type},
+        #{status},
+        #{desc},
+        #{level},
+        #{picUrl},
+        #{price},
+        #{totalNum},
+        #{remainNum},
+        #{sendNum},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="name != null">
+            AND `name`like CONCAT('%',#{name},'%')
+        </if>
+        <if test="type != null">
+            AND `type` = #{type} 
+        </if>
+
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+
+
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_prod 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_prod
+        <set>
+            <if test="merchantId != null"> `merchant_id`=#{merchantId},</if>
+            <if test="name != null"> `name`=#{name},</if>
+            <if test="type != null"> `type`=#{type},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="desc != null"> `desc`=#{desc},</if>
+            <if test="level != null"> `level`=#{level},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="price != null"> `price`=#{price},</if>
+            <if test="totalNum != null"> `total_num`=#{totalNum},</if>
+            <if test="totalNum != null"> `remain_num`=#{totalNum} - send_num,</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id}
+        <if test="totalNum != null">
+            and #{totalNum} > `send_num`
+            and #{totalNum} >= 1
+        </if>
+        limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyProdMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_prod
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyProdMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_prod
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_prod where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyProdMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_prod
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_prod
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+
+    <update id="deductByMap" parameterType="map">
+        UPDATE sy_prod
+        <set>
+            remain_num = remain_num - #{num},
+            send_num = send_num + #{num},
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=now()
+        </set>
+        WHERE `id` = #{id}
+        and `remain_num` >= #{num}  limit 1
+    </update>
+
+    <update id="plusByMap" parameterType="map" >
+        UPDATE
+        sy_prod
+        SET
+            remain_num = remain_num + #{num},
+            send_num = send_num - #{num},
+        <if test="modifier != null"> `modifier`=#{modifier},</if>
+        modify_time = now()
+        WHERE `id` = #{id} limit 1
+    </update>
+
+</mapper>

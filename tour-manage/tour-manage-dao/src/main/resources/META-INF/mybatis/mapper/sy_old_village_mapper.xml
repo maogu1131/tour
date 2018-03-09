@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyOldVillage" >
+
+    <resultMap id="SyOldVillageMap" type="com.songyang.tour.pojo.SyOldVillage">
+        <result column="id" property="id" />
+        <result column="cn_name" property="cnName" />
+        <result column="en_name" property="enName" />
+        <result column="short_name" property="shortName" />
+        <result column="hot" property="hot" />
+        <result column="other_desc" property="otherDesc" />
+        <result column="attribution" property="attribution" />
+        <result column="address" property="address" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="altitude" property="altitude" />
+        <result column="area" property="area" />
+        <result column="population_desc" property="populationDesc" />
+        <result column="history_desc" property="historyDesc" />
+        <result column="history_pic_url" property="historyPicUrl" />
+        <result column="village_desc" property="villageDesc" />
+        <result column="pic_url" property="picUrl" />
+        <result column="services" property="services" />
+        <result column="special_desc" property="specialDesc" />
+        <result column="special_pic_url" property="specialPicUrl" />
+        <result column="folk_act_pic_url" property="folkActPicUrl" />
+        <result column="folk_act_desc" property="folkActDesc" />
+        <result column="traffic_desc" property="trafficDesc" />
+        <result column="status" property="status" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `cn_name`,
+        `en_name`,
+        `short_name`,
+        `hot`,
+        `other_desc`,
+        `attribution`,
+        `address`,
+        `longitude`,
+        `latitude`,
+        `altitude`,
+        `area`,
+        `population_desc`,
+        `history_desc`,
+        `history_pic_url`,
+        `village_desc`,
+        `pic_url`,
+        `services`,
+        `special_desc`,
+        `special_pic_url`,
+        `folk_act_desc`,
+        `folk_act_pic_url`,
+        `traffic_desc`,
+        `status`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{cnName},
+        #{enName},
+        #{shortName},
+        #{hot},
+        #{otherDesc},
+        #{attribution},
+        #{address},
+        #{longitude},
+        #{latitude},
+        #{altitude},
+        #{area},
+        #{populationDesc},
+        #{historyDesc},
+        #{historyPicUrl},
+        #{villageDesc},
+        #{picUrl},
+        #{services},
+        #{specialDesc},
+        #{specialPicUrl},
+        #{folkActDesc},
+        #{folkActPicUrl},
+        #{trafficDesc},
+        #{status},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="cnName != null">
+            AND `cn_name` like CONCAT('%',#{cnName},'%')
+        </if>
+
+        <if test="hot != null">
+            AND `hot` = #{hot}
+        </if>
+        <!--<if test="enName != null">-->
+            <!--AND `en_name` = #{enName} -->
+        <!--</if>-->
+        <!--<if test="shortName != null">-->
+            <!--AND `short_name` = #{shortName} -->
+        <!--</if>-->
+        <!--<if test="type != null">-->
+            <!--AND `type` = #{type} -->
+        <!--</if>-->
+        <!--<if test="otherDesc != null">-->
+            <!--AND `other_desc` = #{otherDesc} -->
+        <!--</if>-->
+        <!--<if test="attribution != null">-->
+            <!--AND `attribution` = #{attribution} -->
+        <!--</if>-->
+
+        <!--<if test="longitude != null">-->
+            <!--AND `longitude` = #{longitude} -->
+        <!--</if>-->
+        <!--<if test="latitude != null">-->
+            <!--AND `latitude` = #{latitude} -->
+        <!--</if>-->
+        <!--<if test="altitude != null">-->
+            <!--AND `altitude` = #{altitude} -->
+        <!--</if>-->
+        <!--<if test="populationDesc != null">-->
+            <!--AND `population_desc` = #{populationDesc} -->
+        <!--</if>-->
+        <!--<if test="historyDesc != null">-->
+            <!--AND `history_desc` = #{historyDesc} -->
+        <!--</if>-->
+        <!--<if test="historyPicUrl != null">-->
+            <!--AND `history_pic_url` = #{historyPicUrl} -->
+        <!--</if>-->
+        <!--<if test="villageDesc != null">-->
+            <!--AND `village_desc` = #{villageDesc} -->
+        <!--</if>-->
+        <!--<if test="picUrl != null">-->
+            <!--AND `pic_url` = #{picUrl} -->
+        <!--</if>-->
+        <!--<if test="services != null">-->
+            <!--AND `services` = #{services} -->
+        <!--</if>-->
+        <!--<if test="specialDesc != null">-->
+            <!--AND `special_desc` = #{specialDesc} -->
+        <!--</if>-->
+        <!--<if test="specialPicUrl != null">-->
+            <!--AND `special_pic_url` = #{specialPicUrl} -->
+        <!--</if>-->
+        <!--<if test="folkActDesc != null">-->
+            <!--AND `folk_act_desc` = #{folkActDesc} -->
+        <!--</if>-->
+        <!--<if test="trafficDesc != null">-->
+            <!--AND `traffic_desc` = #{trafficDesc} -->
+        <!--</if>-->
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+        <!--<if test="creator != null">-->
+            <!--AND `creator` = #{creator} -->
+        <!--</if>-->
+        <!--<if test="createTime != null">-->
+            <!--AND `create_time` = #{createTime} -->
+        <!--</if>-->
+        <!--<if test="modifier != null">-->
+            <!--AND `modifier` = #{modifier} -->
+        <!--</if>-->
+        <!--<if test="modifyTime != null">-->
+            <!--AND `modify_time` = #{modifyTime} -->
+        <!--</if>-->
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_old_village 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_old_village
+        <set>
+            <if test="cnName != null"> `cn_name`=#{cnName},</if>
+            <if test="enName != null"> `en_name`=#{enName},</if>
+            <if test="shortName != null"> `short_name`=#{shortName},</if>
+            <if test="hot != null"> `hot`=#{hot},</if>
+            <if test="otherDesc != null"> `other_desc`=#{otherDesc},</if>
+            <if test="attribution != null"> `attribution`=#{attribution},</if>
+            <if test="address != null"> `address`=#{address},</if>
+            <if test="longitude != null"> `longitude`=#{longitude},</if>
+            <if test="latitude != null"> `latitude`=#{latitude},</if>
+            <if test="altitude != null"> `altitude`=#{altitude},</if>
+            <if test="area != null"> `area`=#{area},</if>
+            <if test="populationDesc != null"> `population_desc`=#{populationDesc},</if>
+            <if test="historyDesc != null"> `history_desc`=#{historyDesc},</if>
+            <if test="historyPicUrl != null"> `history_pic_url`=#{historyPicUrl},</if>
+            <if test="villageDesc != null"> `village_desc`=#{villageDesc},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="services != null"> `services`=#{services},</if>
+            <if test="specialDesc != null"> `special_desc`=#{specialDesc},</if>
+            <if test="specialPicUrl != null"> `special_pic_url`=#{specialPicUrl},</if>
+            <if test="folkActPicUrl != null"> `folk_act_pic_url`=#{folkActPicUrl},</if>
+            <if test="folkActDesc != null"> `folk_act_desc`=#{folkActDesc},</if>
+            <if test="trafficDesc != null"> `traffic_desc`=#{trafficDesc},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyOldVillageMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_old_village
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyOldVillageMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_old_village
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_old_village where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyOldVillageMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_old_village
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_old_village
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyTradeOrder" >
+
+    <resultMap id="SyTradeOrderMap" type="com.songyang.tour.pojo.SyTradeOrder">
+        <result column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="user_id" property="userId" />
+        <result column="src" property="src" />
+        <result column="prod_id" property="prodId" />
+        <result column="prod_name" property="prodName" />
+        <result column="amount" property="amount" />
+        <result column="num" property="num" />
+        <result column="real_pay_amount" property="realPayAmount" />
+        <result column="status" property="status" />
+        <result column="mail_address_id" property="mailAddressId" />
+        <result column="pay_way" property="payWay" />
+        <result column="pay_status" property="payStatus" />
+        <result column="third_order_id" property="thirdOrderId" />
+        <result column="occur_date" property="occurDate" />
+        <result column="remark" property="remark" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `order_id`,
+        `user_id`,
+        `src`,
+        `prod_id`,
+        `prod_name`,
+        `amount`,
+        `num`,
+        `real_pay_amount`,
+        `status`,
+        `mail_address_id`,
+        `pay_way`,
+        `pay_status`,
+        `third_order_id`,
+        `occur_date`,
+        `remark`,
+        `create_time`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{orderId},
+        #{userId},
+        #{src},
+        #{prodId},
+        #{prodName},
+        #{amount},
+        #{num},
+        #{realPayAmount},
+        #{status},
+        #{mailAddressId},
+        #{payWay},
+        #{payStatus},
+        #{thirdOrderId},
+        #{occurDate},
+        #{remark},
+        #{createTime},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="orderId != null">
+            AND `order_id` = #{orderId} 
+        </if>
+        <if test="userId != null">
+            AND `user_id` = #{userId} 
+        </if>
+        <if test="src != null">
+            AND `src` = #{src} 
+        </if>
+        <if test="status != null">
+            AND `status` = #{status} 
+        </if>
+        <if test="occurDate != null">
+            AND `occur_date` = #{occurDate} 
+        </if>
+        <if test="createTime != null">
+            AND `create_time` = #{createTime} 
+        </if>
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_trade_order 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_trade_order
+        <set>
+            <if test="orderId != null"> `order_id`=#{orderId},</if>
+            <if test="userId != null"> `user_id`=#{userId},</if>
+            <if test="src != null"> `src`=#{src},</if>
+            <if test="prodId != null"> `prod_id`=#{prodId},</if>
+            <if test="prodName != null"> `prod_name`=#{prodName},</if>
+            <if test="amount != null"> `amount`=#{amount},</if>
+            <if test="num != null"> `num`=#{num},</if>
+            <if test="realPayAmount != null"> `real_pay_amount`=#{realPayAmount},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="mailAddressId != null"> `mail_address_id`=#{mailAddressId},</if>
+            <if test="payWay != null"> `pay_way`=#{payWay},</if>
+            <if test="payStatus != null"> `pay_status`=#{payStatus},</if>
+            <if test="thirdOrderId != null"> `third_order_id`=#{thirdOrderId},</if>
+            <if test="remark != null"> `remark`=#{remark},</if>
+            <if test="occurDate != null"> `occur_date`=#{occurDate},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyTradeOrderMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_trade_order
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyTradeOrderMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_trade_order
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_trade_order where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyTradeOrderMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_trade_order
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_trade_order
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyGuide" >
+
+    <resultMap id="SyGuideMap" type="com.songyang.tour.pojo.SyGuide">
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="desc" property="desc" />
+        <result column="phone" property="phone" />
+        <result column="key_word" property="keyWord" />
+        <result column="pic_url" property="picUrl" />
+        <result column="audio_url" property="audioUrl" />
+        <result column="status" property="status" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `name`,
+        `desc`,
+        `phone`,
+        `key_word`,
+        `pic_url`,
+        `audio_url`,
+        `status`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{name},
+        #{desc},
+        #{phone},
+        #{keyWord},
+        #{picUrl},
+        #{audioUrl},
+        #{status},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="name != null">
+            AND `name` like CONCAT('%',#{name},'%')
+        </if>
+        <!--<if test="desc != null">-->
+            <!--AND `desc` = #{desc} -->
+        <!--</if>-->
+        <if test="phone != null">
+            AND `phone` = #{phone} 
+        </if>
+        <if test="keyWord != null">
+            AND `key_word`  like CONCAT('%',#{keyWord},'%')
+        </if>
+        <!--<if test="picUrl != null">-->
+            <!--AND `pic_url` =  #{picUrl}-->
+    <!--</if>-->
+        <!--<if test="audioUrl != null">-->
+            <!--AND `audio_url` =  #{audioUrl}-->
+        <!--</if>-->
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+        <!--<if test="creator != null">-->
+            <!--AND `creator` = #{creator} -->
+        <!--</if>-->
+        <!--<if test="createTime != null">-->
+            <!--AND `create_time` = #{createTime} -->
+        <!--</if>-->
+        <!--<if test="modifier != null">-->
+            <!--AND `modifier` = #{modifier} -->
+        <!--</if>-->
+        <!--<if test="modifyTime != null">-->
+            <!--AND `modify_time` = #{modifyTime} -->
+        <!--</if>-->
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_guide 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_guide
+        <set>
+            <if test="name != null"> `name`=#{name},</if>
+            <if test="desc != null"> `desc`=#{desc},</if>
+            <if test="phone != null"> `phone`=#{phone},</if>
+            <if test="keyWord != null"> `key_word`=#{keyWord},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="audioUrl != null"> `audio_url`=#{audioUrl},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyGuideMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_guide
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyGuideMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_guide
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_guide where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyGuideMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_guide
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_guide
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

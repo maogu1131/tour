@@ -1,0 +1,121 @@
+<style type="text/css">
+    .diy-checkbox {
+        margin: 15px 0px !important;
+    }
+
+    .from-control-diy {
+        display: inline;
+    }
+
+    .disabled-diy {
+        background-color: #EBEBE4;
+    }
+</style>
+
+
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/admin/superAdminPassInit">编辑超级管理员</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/admin/addAdminInit">添加普通管理员</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/admin/query">普通管理员列表</a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit">设置超级管理员密码</i></h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="box-content" style="margin-right:400px;">
+                <div style="margin-left: 285px"> <span style="color: orangered;">$!{msg}</span></div>
+                <!--banner配置信息-->
+                <form id="banner" action="${ac.contextPath}/manage/admin/superAdminPass" data-toggle="validator"
+                      method="post"
+                      class="form-horizontal">
+                    <!--id-->
+                    <input type="hidden" id="id" name="id" value="$!{id}"/>
+                    <input type="hidden" id="name" name="name" value="$!{userName}"/>
+
+                    #if($!{id})
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">id:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;" class="form-control"
+                                       value="$!id" disabled>
+
+                            </div>
+                        </div>
+                    #end
+
+                    <!--用户名-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>超级管理员用户名:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="userName" name="userName" value="$!userName" disabled/>
+                        </div>
+                    </div>
+
+                    <!--旧密码-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>旧密码:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="oldPass" name="oldPass" value="$!oldPass"/>
+                        </div>
+                    </div>
+
+                    <!--新密码-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>新密码:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="newPass" name="newPass" value="$!newPass"/>
+                        </div>
+                    </div>
+
+                    <!--确认密码-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>确认密码:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="confirmPass" name="confirmPass" value="$!confirmPass"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // 页面初始化
+    $(function () {
+
+    });
+
+</script>

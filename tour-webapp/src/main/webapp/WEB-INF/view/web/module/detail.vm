@@ -1,0 +1,129 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/module/query">模块管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/module/init">新建模块</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i>模块详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >模块id:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!module.id" disabled>
+                       </div>
+                   </div>
+
+                   <!--名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>名字:</label>
+                       <div class="col-sm-5">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!module.title" disabled>
+                       </div>
+                   </div>
+
+                   <!--子标题-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >子标题:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!module.subTitle" disabled />
+                       </div>
+                   </div>
+
+                   <!--名称图片地址-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>名称图片地址:</label>
+                       <div class="col-sm-10">
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{module.titlePicUrl}" height="80" width="250"/>
+                               </div>
+                       </div>
+                   </div>
+
+                   <!--类型-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >类型:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control" id="type" name="type" onchange="" disabled>
+                               #foreach($e in $moduleList)
+                                   <option value='$e.code' #if($!module.type == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--排序-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>排序:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!module.sort" disabled />
+                       </div>
+                   </div>
+			 </form>
+            </div>
+			
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

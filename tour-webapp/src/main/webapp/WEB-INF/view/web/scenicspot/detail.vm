@@ -1,0 +1,376 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+	
+	/**矩阵配置的样式***/
+    #wizard div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+        margin: 0;
+    }
+	/**border:5px solid #789;**/
+    #wizard {font-size:12px;min-height:700px;margin:20px auto;width:850px;overflow:hidden;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;}
+    #wizard .items{width:20000px;clear:both; position:absolute;}
+    #wizard .right{float:right;}
+    /**#wizard #status{height:35px;background:#123;padding-left:25px !important;}**/
+	#wizard #status{height:35px;background-color: #f5f5f5;border-radius: 4px;padding-left:25px !important;}   
+	/**color:#fff;**/
+    #status li{float:left;color: #555555;padding:10px 30px;list-style-type:none;}
+    /**#status li.active{background-color:#369;font-weight:normal;}**/
+	#status li.active{background-color:#d9edf7;font-weight:normal;}
+    .input{width:240px; height:18px; margin:10px auto; line-height:20px; border:1px solid #d3d3d3; padding:2px}
+    .page{padding:20px 30px;width:850px;float:left;}
+    .page h3{height:42px; font-size:16px; border-bottom:1px dotted #ccc; margin-bottom:20px; padding-bottom:5px}
+    .page h3 em{font-size:12px; font-weight:500; font-style:normal}
+    .page p{line-height:24px;}
+    .page p label{font-size:14px; display:block;}
+    .btn_nav{height:36px; line-height:36px; margin:20px auto;}
+    .prev,.next{cursor: pointer;}
+	.table tr{height:50px;}
+	.table tr td {font-size: 15px;color: #555555;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+	.table tr td input{height:30px;}
+	.sm-td tr{height:35px;}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/scenicSpot/query">景区管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/scenicSpot/init">新建景区</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data
+                  icon-edit"></i>景区详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   #if($!{syScenicSpot.id})
+                       <div class = "form-group">
+                           <label for="name" class="col-sm-2 control-label" >景区id:</label>
+                           <div class="col-sm-10">
+                               <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!syScenicSpot.id" disabled>
+                           </div>
+                       </div>
+                   #end
+
+                   <!--中文名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >中文名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="cnName" name="cnName" value="$!syScenicSpot.cnName" disabled />
+                       </div>
+                   </div>
+
+                   <!--英文名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >英文名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="enName" name="enName" value="$!syScenicSpot.enName" disabled>
+                       </div>
+                   </div>
+
+                   <!--景区称号-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >景区称号:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="shortName" name="shortName" value="$!syScenicSpot.shortName" disabled>
+                       </div>
+                   </div>
+
+                   <!--热度-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >是否热度:</label>
+                       <div class="col-sm-3">
+                           <select class="form-control" id="hot" name="hot" disabled>
+                               <option value='1' #if($!syScenicSpot.hot == 1) selected #end>不热</option>
+                               <option value='2' #if($!syScenicSpot.hot == 2) selected #end>热</option>
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--景区价格-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >景区价格:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="price" name="price" value="$!syScenicSpot.price" disabled>
+                       </div>
+                   </div>
+
+                   <!--门票总量-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">门票总量:</label>
+                       <div class="col-sm-10">
+                           <input type="number" style="width:45%;display: inline;"  class="form-control" value="$!syScenicSpot.ticketTotalNum" disabled  />
+                           <span class="alert alert-success" style="padding:10px;">个</span>
+                       </div>
+                   </div>
+
+                   <!--景区类型-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>类型:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control" id="type" name="type"  disabled>
+                                   <option value='$e.code' #if($!syScenicSpot.type == $e.code) selected #end>${e.name}</option>
+                               #foreach($e in $scenicSpotTypeList)
+                                   <option value='$e.code' #if($!syScenicSpot.type == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--其他描述-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >其他描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="otherDesc" name="otherDesc" value="$!syScenicSpot.otherDesc" disabled />
+                       </div>
+                   </div>
+
+                   <!--地址-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" >地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="address" name="address" value="$!syScenicSpot.address" disabled/>
+                       </div>
+                   </div>
+
+                   <!--景区等级 几个AAA-->
+                   <div class="form-group">
+                       <label for="name" class="col-sm-2 control-label">景区等级:</label>
+                       <div class="col-sm-3">
+                           <select class="form-control" id="level" name="level" disabled>
+                               <option value='$!syScenicSpot.type'> $!syScenicSpot.type</option>
+                           </select>
+
+                       </div>
+                   </div>
+
+
+                   <!--经度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>经度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="longitude" name="longitude" value="$!syScenicSpot.longitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--纬度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>纬度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="latitude" name="latitude" value="$!syScenicSpot.latitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+##                   <!--海拔-->
+##                   <div class="form-group">
+##                       <label class="col-sm-2 control-label" >海拔:</label>
+##                       <div class="col-sm-10">
+##                           <!--TODO 补上正则 浮点-->
+##                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="altitude" name="altitude"
+##                                   value="$!syScenicSpot.altitude" disabled />
+##                       </div>
+##                   </div>
+
+                   <!--预定电话-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">预定电话:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="phone" name="phone"
+                                  value="$!syScenicSpot.phone" disabled>
+                       </div>
+                   </div>
+
+
+                   <!--微信二维码图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">微信二维码图片:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $wechatPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+
+                   <!--微信公众号-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">微信公众号:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="wechatPublicSignal" name="wechatPublicSignal"
+                                value="$!syScenicSpot.wechatPublicSignal" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--景区简介-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>景区简介:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="desc" name="desc"
+                                    disabled>$!syScenicSpot.desc</textarea>
+                       </div>
+                   </div>
+
+                   <!--景区图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">景区图片:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $picUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+
+                   <!--视频地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">视频地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="videoUrl"
+                                  name="videoUrl" value="$!syScenicSpot.videoUrl" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--开放时间描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">开放时间描述:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="openTimeDesc" name="openTimeDesc"
+                                      disabled>$!syScenicSpot.openTimeDesc</textarea>
+                       </div>
+                   </div>
+
+
+                   <!--特色描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">特色描述:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="specialDesc" name="specialDesc"
+                                      disabled>$!syScenicSpot.specialDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--特色文化图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">特色文化图片:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $specialPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--线路描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">线路描述:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="routeDesc" name="routeDesc"
+                                      disabled>$!syScenicSpot.routeDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--票务描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">票务描述:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="ticketDesc" name="ticketDesc"
+                                      disabled>$!syScenicSpot.ticketDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--导览音频地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">导览音频地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control"
+                                  id="tourAudioUrl" name="tourAudioUrl" value="$!syScenicSpot.tourAudioUrl" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--游玩提示-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">游玩提示:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="playTips" name="playTips"
+                                      disabled>$!syScenicSpot.playTips</textarea>
+                       </div>
+                   </div>
+
+                   <!--交通描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >交通描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="trafficDesc" name="trafficDesc" value="$!syScenicSpot.trafficDesc" disabled />
+                       </div>
+                   </div>
+			 </form>
+            </div>
+			
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

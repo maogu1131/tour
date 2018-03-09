@@ -1,0 +1,508 @@
+<style type="text/css">
+    .diy-checkbox {
+        margin: 15px 0px !important;
+    }
+
+    .from-control-diy {
+        display: inline;
+    }
+
+    .disabled-diy {
+        background-color: #EBEBE4;
+    }
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/scenicSpot/query">景区管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/scenicSpot/init">新建景区</a>
+        </li>
+    </ul>
+</div>
+
+#set($picUrlListStr="$!{syScenicSpot.picUrlListStr}")
+#set($specialPicUrlListStr="$!{syScenicSpot.specialPicUrlListStr}")
+#set($wechatPicUrlListStr="$!{syScenicSpot.wechatPicUrlListStr}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit"></i></h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="box-content" style="margin-right:400px;">
+                <!--景区信息-->
+                <form id="scenicSpot" action="${ac.contextPath}/manage/scenicSpot/save" data-toggle="validator" method="post"
+                      class="form-horizontal">
+                    <!--id-->
+                    #if($!{syScenicSpot.id})
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">景区id:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;" class="form-control"
+                                       id="id" name="id"    value="$!syScenicSpot.id" readonly />
+                            </div>
+                        </div>
+                    #end
+
+                    <!--中文名字-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>中文名字:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="cnName"
+                                   name="cnName" value="$!syScenicSpot.cnName"
+                                   placeholder="不能大于64个字符" required data-required-error="中文名称不能为空"
+                                   data-minlength="2" data-minlength-error="中文名称不能少于2个字符" pattern=".{2,64}"
+                                   data-pattern-error="中文名称不能大于64个字符"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--英文名字-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">英文名字:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="enName" name="enName"
+                                   placeholder="不能大于64个字符" value="$!syScenicSpot.enName"
+                                   data-minlength="2" data-minlength-error="英文名称不能少于2个字符" pattern=".{2,64}"
+                                   data-pattern-error="英文名称不能大于64个字符"/>
+                        </div>
+                    </div>
+
+                    <!--景区称号-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">景区称号:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="shortName" name="shortName"
+                                   placeholder="不能大于32个字符" value="$!syScenicSpot.shortName"
+                                   data-minlength="2" data-minlength-error="称号不能少于2个字符" pattern=".{2,32}"
+                                   data-pattern-error="称号不能大于32个字符" />
+                        </div>
+                    </div>
+
+                    <!--热度-->
+                    <div class = "form-group">
+                        <label for="name" class="col-sm-2 control-label" >是否热度:</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="hot" name="hot">
+                                <option value='1' #if($!syScenicSpot.hot == 1) selected #end>不热</option>
+                                <option value='2' #if($!syScenicSpot.hot == 2) selected #end>热</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!--景区价格-->
+                    <div class = "form-group">
+                        <label for="name" class="col-sm-2 control-label" >景区价格:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;"  class="form-control"  id="price" name="price" value="$!syScenicSpot.price"
+                                   placeholder="景区价格"
+                                   pattern="\d+(\.\d+)?" data-pattern-error="请填写正确的价格"
+                            />
+                            <span class="alert alert-success" style="padding:10px;">元</span>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--门票总量-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">门票总量:</label>
+                        <div class="col-sm-10">
+                            <input type="number" style="width:45%;display: inline;"  class="form-control"  id="ticketTotalNum" name="ticketTotalNum"
+                                   min="1" max="999999" value="$!syScenicSpot.ticketTotalNum"
+                                   placeholder="门票总量" required data-required-error="门票总量不能为空"  />
+                            <span class="alert alert-success" style="padding:10px;">个</span>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--景区类型-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>景区类型:</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="type" name="type" onchange="">
+                                #foreach($e in $scenicSpotTypeList)
+                                    <option value=$e.code #if($!syScenicSpot.type == $e.code)
+                                            selected #end>${e.name}</option>
+                                #end
+                                <option value=-99>其他</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--其他描述-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">其他描述:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="otherDesc" name="otherDesc"
+                                   placeholder="不能大于128个字符" value="$!syScenicSpot.otherDesc"
+                                   data-minlength="2" data-minlength-error="其他描述不能少于2个字符" pattern=".{2,128}"
+                                   data-pattern-error="其他描述不能大于128个字符"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--地址描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="address" name="address"
+                                   placeholder="不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.address</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--景区等级 几个AAA-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">景区等级:</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="level" name="level" onchange="">
+                                    <option value='A'>A</option>
+                                    <option value='AA'>AA</option>
+                                    <option value='AAA'>AAA</option>
+                                    <option value='AAAA'>AAAA</option>
+                                    <option value='AAAAA'>AAAAA</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <!--经度-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font color="red" size="5">*</font>经度:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="longitude"
+                                   name="longitude" value="$!syScenicSpot.longitude"
+                                   placeholder="请填写小数或者整数" required data-required-error="经度不能为空"
+                                   pattern="(-)?\d+(\.\d+)?" data-pattern-error="请填写小数或者整数"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--纬度-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font color="red" size="5">*</font>纬度:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="latitude"
+                                   name="latitude" value="$!syScenicSpot.latitude"
+                                   placeholder="请填写小数或者整数" required data-required-error="纬度不能为空"
+                                   pattern="(-)?\d+(\.\d+)?" data-pattern-error="请填写小数或者整数"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+##                    <!--海拔-->
+##                    <div class="form-group">
+##                        <label class="col-sm-2 control-label" >海拔:</label>
+##                        <div class="col-sm-10">
+##                            <!--TODO 补上正则 浮点-->
+##                            <input type="text" style="width:45%;display: inline;"  class="form-control"  id="altitude" name="altitude"
+##                                   placeholder="海拔" value="$!syScenicSpot.altitude">
+##                        </div>
+##                    </div>
+
+                    <!--预定电话-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">预定电话:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="phone" name="phone"
+                                   value="$!syScenicSpot.phone"  placeholder="预定电话" />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--微信二维码图片地址-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">微信二维码图片地址:</label>
+                        <div class="col-sm-10">
+                            <div id="container2">
+                                <a href="javascript:void(0)" class="file">选择文件
+                                    <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                    <input type="hidden" id="wechatPicUrl" name="wechatPicUrl" value="$!syScenicSpot.wechatPicUrl" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--微信公众号-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">微信公众号:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="wechatPublicSignal" name="wechatPublicSignal"
+                                   placeholder="不能大于64个字符" value="$!syScenicSpot.wechatPublicSignal"
+                                   pattern=".{2,64}" data-pattern-error="微信公众号不能大于64个字符"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--景区简介-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">景区简介:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="desc" name="desc" placeholder="景区简介"
+                                      maxlength="2048"
+                            >$!syScenicSpot.desc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--图片地址-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            景区图片上传:</label>
+                        <div class="col-sm-10">
+                            <div id="container">
+                                <a href="javascript:void(0)" class="file">选择文件
+                                    <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                    <input type="hidden" id="picUrl" name="picUrl" value="$!syScenicSpot.picUrl" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+##                    <!--景区图片上传-->
+##                    <div class="form-group">
+##                        <label class="col-sm-2 control-label">景区图片上传:</label>
+##                        <div class="col-sm-10">
+##                            <input type="text" style="width:45%;display: inline;" class="form-control" id="picUrl"
+##                                   name="picUrl"  placeholder="图片地址" value="$!syScenicSpot.picUrl"
+##                                   required data-required-error="图片地址不能为空" readonly>
+##                            <div class='upload_box'>
+##                                <div class='upload_main'>
+##                                    <div class='upload_choose'>
+##                                        <div id='formId1'>
+##                                            <a href="javascript:void(0)" class="file">选择文件
+##                                                <input id='fileImage1' type='file' multiple name='imgFile' accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                            </a>
+##                                        </div>
+##                                        <span id='fileDragArea1' class='upload_drag_area'>或者将图片拖到此处</span>
+##                                    </div>
+##                                    <ul id='preview1' class='upload_preview'></ul>
+##                                </div>
+##                                <div class='upload_submit'>
+##                                    <input type='submit' id='submit1' class='upload_submit_btn' value='上传图片' />
+##                                </div>
+##                                <div id="uploadInf1" class="upload_inf"></div>
+##                            </div>
+##                        </div>
+##                    </div>
+
+                    <!--视频地址-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">视频地址:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="videoUrl" name="videoUrl" placeholder="视频地址" value="$!syScenicSpot.videoUrl"
+                                   pattern="[a-zA-z]+://[^\s]*" data-pattern-error="请填写有效视频地址"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--开放时间描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开放时间描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="openTimeDesc" name="openTimeDesc"
+                                      placeholder="开放时间描述不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.openTimeDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--特色描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">特色描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="specialDesc" name="specialDesc"
+                                      placeholder="特色描述不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.specialDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+
+                    <!--特色文化图片地址-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                           特色文化图片地址:</label>
+                        <div class="col-sm-10">
+                            <div id="container1">
+                                <a href="javascript:void(0)" class="file">选择文件
+                                    <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                    <input type="hidden" id="specialPicUrl" name="specialPicUrl" value="$!syScenicSpot.specialPicUrl" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+##                    <!--特色文化图片地址-->
+##                    <div class="form-group">
+##                        <label class="col-sm-2 control-label">特色文化图片地址:</label>
+##                        <div class="col-sm-10">
+##                            <input type="text" style="width:45%;display: inline;" class="form-control" id="specialPicUrl" name="specialPicUrl"
+##                                   placeholder="特色文化图片地址" value="$!syScenicSpot.specialPicUrl" readonly>
+##                            <div class='upload_box'>
+##                                <div class='upload_main'>
+##                                    <div class='upload_choose'>
+##                                        <div id='formId2'>
+##                                            <a href="javascript:void(0)" class="file">选择文件
+##                                                <input id='fileImage2' type='file' multiple name='imgFile'
+##                                                       accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                            </a>
+##                                        </div>
+##                                        <span id='fileDragArea2' class='upload_drag_area'>或者将图片拖到此处</span>
+##                                    </div>
+##                                    <ul id='preview2' class='upload_preview'></ul>
+##                                </div>
+##                                <div class='upload_submit'>
+##                                    <input type='submit'  id='submit2' class='upload_submit_btn' value='上传图片' />
+##                                </div>
+##                                <div id="uploadInf2" class="upload_inf"></div>
+##                            </div>
+##                        </div>
+##                    </div>
+
+
+                    <!--线路描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">线路描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="routeDesc" name="routeDesc"
+                                      placeholder="线路描述不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.routeDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--票务描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">票务描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="ticketDesc" name="ticketDesc"
+                                      placeholder="票务描述不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.ticketDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--导览音频地址-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">导览音频地址:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="tourAudioUrl" name="tourAudioUrl" value="$!syScenicSpot.tourAudioUrl"
+                                   placeholder="导览音频地址"  pattern="[a-zA-z]+://[^\s]*" data-pattern-error="请填写有效导览音频地址"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--游玩提示-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">游玩提示:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="playTips" name="playTips"
+                                      placeholder="游玩提示不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.playTips</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--交通描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">交通描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="trafficDesc" name="trafficDesc"
+                                      placeholder="交通描述不能大于2048个字符"
+                                      maxlength="2048"
+                            >$!syScenicSpot.trafficDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    // 页面初始化
+    $(function () {
+        data =  eval($!picUrlListStr);
+        data1 =  eval($!specialPicUrlListStr);
+        data2 =  eval($!wechatPicUrlListStr);
+        upload('container',data,'scenicspot');
+        upload('container1',data1,'scenicspot');
+        upload('container2',data2,'scenicspot');
+
+    });
+
+
+
+    $('#scenicSpot').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            layer.msg('亲,请将信息填写完整呀~', {icon: 5,time: 1000});
+        } else {
+            var data = $('#scenicSpot').serialize();
+            console.log(data);
+            layer.load(0, {shade: false});
+            $.ajax({
+                type: 'POST',
+                url: basePath + '/manage/scenicSpot/save',
+                data: data,
+                success: function (res) {
+                    layer.closeAll("loading");
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon:6,time: 3000});
+                        window.location = basePath + "/manage/scenicSpot/query";
+                    } else {
+                        layer.msg(res.msg, {icon: 10,time: 3000});
+                    }
+                },
+                error: function () {
+                    layer.closeAll("loading");
+                    layer.msg("提交失败,请重试", {icon: 5,time: 3000});
+                }
+            });
+
+        }
+        return false;
+    });
+
+</script>

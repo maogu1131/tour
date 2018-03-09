@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyHotel">
+
+    <resultMap id="SyHotelMap" type="com.songyang.tour.pojo.SyHotel">
+        <result column="id" property="id"/>
+        <result column="cn_name" property="cnName"/>
+        <result column="sub_title" property="subTitle"/>
+        <result column="type" property="type"/>
+        <result column="sub_type" property="subType"/>
+        <result column="label" property="label"/>
+        <result column="sub_type_desc" property="subTypeDesc"/>
+        <result column="level" property="level"/>
+        <result column="address" property="address"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="jump_url" property="jumpUrl"/>
+        <result column="phone" property="phone"/>
+        <result column="desc" property="desc"/>
+        <result column="banner_pic_url" property="bannerPicUrl"/>
+        <result column="pic_url" property="picUrl"/>
+        <result column="open_time_desc" property="openTimeDesc"/>
+        <result column="environment_desc" property="environmentDesc"/>
+        <result column="traffic_desc" property="trafficDesc"/>
+        <result column="status" property="status"/>
+        <result column="creator" property="creator"/>
+        <result column="create_time" property="createTime"/>
+        <result column="modifier" property="modifier"/>
+        <result column="modify_time" property="modifyTime"/>
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `cn_name`,
+        `sub_title`,
+        `label`,
+        `type`,
+        `sub_type`,
+        `sub_type_desc`,
+        `level`,
+        `address`,
+        `longitude`,
+        `latitude`,
+        `jump_url`,
+        `phone`,
+        `desc`,
+        `banner_pic_url`,
+        `pic_url`,
+        `open_time_desc`,
+        `environment_desc`,
+        `traffic_desc`,
+        `status`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{cnName},
+        #{subTitle},
+        #{label},
+        #{type},
+        #{subType},
+        #{subTypeDesc},
+        #{level},
+        #{address},
+        #{longitude},
+        #{latitude},
+        #{jumpUrl},
+        #{phone},
+        #{desc},
+        #{bannerPicUrl},
+        #{picUrl},
+        #{openTimeDesc},
+        #{environmentDesc},
+        #{trafficDesc},
+        #{status},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id}
+        </if>
+        <if test="cnName != null">
+            AND `cn_name`  like CONCAT('%',#{cnName},'%')
+        </if>
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+        <if test="subType != null">
+            AND `sub_type` = #{subType}
+        </if>
+
+        <if test="level != null">
+            AND `level` = #{level}
+        </if>
+        <if test="address != null">
+            AND `address`  like CONCAT('%',#{address},'%')
+        </if>
+
+        <if test="phone != null">
+            AND `phone` = #{phone}
+        </if>
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sy_hotel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_hotel
+        <set>
+            <if test="cnName != null">`cn_name`=#{cnName},</if>
+            <if test="subTitle != null">`sub_title`=#{subTitle},</if>
+            <if test="label != null">`label`=#{label},</if>
+            <if test="type != null">`type`=#{type},</if>
+            <if test="subType != null">`sub_type`=#{subType},</if>
+            <if test="subTypeDesc != null">`sub_type_desc`=#{subTypeDesc},</if>
+            <if test="level != null">`level`=#{level},</if>
+            <if test="address != null">`address`=#{address},</if>
+            <if test="longitude != null">`longitude`=#{longitude},</if>
+            <if test="latitude != null">`latitude`=#{latitude},</if>
+            <if test="jumpUrl != null">`jump_url`=#{jumpUrl},</if>
+            <if test="phone != null">`phone`=#{phone},</if>
+            <if test="desc != null">`desc`=#{desc},</if>
+            <if test="bannerPicUrl != null">`banner_pic_url`=#{bannerPicUrl},</if>
+            <if test="picUrl != null">`pic_url`=#{picUrl},</if>
+            <if test="openTimeDesc != null">`open_time_desc`=#{openTimeDesc},</if>
+            <if test="environmentDesc != null">`environment_desc`=#{environmentDesc},</if>
+            <if test="trafficDesc != null">`traffic_desc`=#{trafficDesc},</if>
+            <if test="status != null">`status`=#{status},</if>
+            <if test="creator != null">`creator`=#{creator},</if>
+            <if test="modifier != null">`modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyHotelMap">
+        SELECT
+        <include refid="_field_list"/>
+        FROM sy_hotel
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyHotelMap">
+        SELECT
+        <include refid="_field_list"/>
+        FROM sy_hotel
+        WHERE `id` = #{id} limit 1 for update
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_hotel where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyHotelMap">
+        SELECT
+        <include refid="_field_list"/>
+        FROM
+        sy_hotel
+        <where>
+            1 = 1
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long">
+        SELECT
+        count(1)
+        FROM
+        sy_hotel
+        <where>
+            1 = 1
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

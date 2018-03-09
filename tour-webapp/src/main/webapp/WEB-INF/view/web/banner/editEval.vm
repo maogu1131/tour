@@ -1,0 +1,83 @@
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+	.popover {
+		max-width: 600px !important;
+	}
+</style>
+
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="title"><i class="glyphicon glyphicon-edit"></i> </h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+			
+            <div class="box-content" style="margin-right:400px;">
+				<form id="taskBasic" action="${ac.contextPath}/mobile/api/more" enctype="multipart/form-data" method="post" class="form-horizontal" >
+					<div class = "form-group">
+                    	<label class="col-sm-2 control-label" > 等级:</label>
+                    	<div class="col-sm-10">
+                      		<input type="number" style="width:45%;display: inline;"  class="form-control"
+							 id="effect_level" name="effectLevel">
+                    	</div>
+                  	</div>
+
+                    <div class = "form-group">
+                        <label class="col-sm-2 control-label" > 产品id:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                   id="prodId" name="prodId" value="2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">内容:</label>
+                        <div class="col-sm-4" style="margin-top:10px;width:420px;">
+                            <input type="text" style="display: inline;"  class="form-control"  id="remark" name="effectContent">
+                        </div>
+                    </div>				
+				
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片1</label>
+                        <div class="col-sm-5" >
+							<input class="form-control" type="file"  name="imgs"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">图片2</label>
+                        <div class="col-sm-5" >
+                            <input class="form-control" type="file"  name="imgs"  />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div style="float:left;margin-left:45%;">
+                            <input id="saveButton" type="submit" class="btn btn-primary" value="&nbsp;提&nbsp;交&nbsp;"></input>
+                        </div>
+                    </div>
+				</form>
+            </div>
+        </div>
+      </div>
+
+</div>
+
+
+    <script>
+
+	
+    </script>

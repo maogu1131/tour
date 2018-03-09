@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyTravelStrategy" >
+
+    <resultMap id="SyTravelStrategyMap" type="com.songyang.tour.pojo.SyTravelStrategy">
+        <result column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="desc" property="desc" />
+        <result column="type" property="type" />
+        <result column="jump_url" property="jumpUrl" />
+        <result column="pic_url" property="picUrl" />
+        <result column="hot" property="hot" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="creator" property="creator" />
+        <result column="modifier" property="modifier" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `title`,
+        `desc`,
+        `type`,
+        `jump_url`,
+        `pic_url`,
+        `hot`,
+        `status`,
+        `create_time`,
+        `modify_time`,
+        `creator`,
+        `modifier`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{title},
+        #{desc},
+        #{type},
+        #{jumpUrl},
+        #{picUrl},
+        #{hot},
+        #{status},
+        #{createTime},
+        #{modifyTime},
+        #{creator},
+        #{modifier}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="title != null">
+            AND `title`  like CONCAT('%',#{title},'%')
+        </if>
+
+        <if test="hot != null">
+            AND `hot` = #{hot} 
+        </if>
+        <if test="status != null">
+            AND `status` = #{status} 
+        </if>
+
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode.mode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_travel_strategy 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_travel_strategy
+        <set>
+            <if test="title != null"> `title`=#{title},</if>
+            <if test="desc != null"> `desc`=#{desc},</if>
+            <if test="type != null"> `type`=#{type},</if>
+            <if test="jumpUrl != null"> `jump_url`=#{jumpUrl},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="hot != null"> `hot`=#{hot},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyTravelStrategyMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_travel_strategy
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyTravelStrategyMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_travel_strategy
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_travel_strategy where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyTravelStrategyMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_travel_strategy
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_travel_strategy
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

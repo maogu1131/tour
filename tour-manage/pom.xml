@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.songyang.tour</groupId>
+        <artifactId>tour</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <!--也是父类级别工程,只是是作为一些功能模块的父级，这个是要最最优先install的,但是又因为他下面有依赖其他同级模块,所以其他同级模块要先install-->
+    <groupId>com.songyang.tour-manage</groupId>
+    <artifactId>tour-manage</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>  
+    <name>tour-manage</name>
+    
+
+    <modules>
+        <module>tour-manage-pojo</module>
+        <module>tour-manage-dao</module>
+        <module>tour-manage-service</module>
+        <module>tour-manage-component</module>
+    </modules>
+
+
+    <properties>   
+       
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <druid.version>1.0.4</druid.version>
+        <mybatis-spring.version>1.1.1</mybatis-spring.version>
+        <mysql-connector.version>5.1.21</mysql-connector.version>
+        <mybatis.version>3.2.5</mybatis.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <log4j.version>1.2.16</log4j.version>
+        <persistence-api.version>1.0.2</persistence-api.version>
+        <spring.version>3.2.16.RELEASE</spring.version>
+        <alipay.version>20180104135026</alipay.version>
+        <commons-logging.version>1.1.1</commons-logging.version>
+  
+
+    </properties>
+
+
+    <dependencies>
+
+        <!--项目公共模块，因为父类依赖此模块，所以父类下的所有子类会有传递依赖-->
+        <dependency>
+            <groupId>com.songyang.tour</groupId>
+            <artifactId>tour-commons</artifactId>
+            <version>1.0.0</version>           
+        </dependency>
+               <!-- Mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.collections</artifactId>
+            <version>${org.apache.commons.collections.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
+        </dependency>
+        <!-- MySql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+        <!-- 连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+             <version>${druid.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>${persistence-api.version}</version>
+        </dependency>
+
+
+       <dependency>
+             <groupId>org.springframework</groupId>
+             <artifactId>spring-beans</artifactId>
+             <version>${spring.version}</version>
+        </dependency>
+        
+         <dependency>
+             <groupId>org.springframework</groupId>
+             <artifactId>spring-aop</artifactId>
+             <version>${spring.version}</version>
+         </dependency>
+         
+         <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+         </dependency>
+         
+          <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+         </dependency>
+         
+         <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay</artifactId>
+                <version>${alipay.version}</version>
+          </dependency>
+            
+           <dependency>
+                <groupId>commons</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
+            </dependency>
+
+    </dependencies>
+
+</project>

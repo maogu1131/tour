@@ -1,0 +1,373 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/hotel/query">酒店管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/hotel/init">新建酒店</a>
+        </li>
+    </ul>
+</div>
+
+#set($picUrlListStr="$!{hotel.picUrlListStr}")
+#set($bannerPicUrlListStr="$!{hotel.bannerPicUrlListStr}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit"></i> </h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="alert alert-danger" >
+                <strong>配置说明</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br/><br/>
+                <label>&nbsp;&nbsp;1、标签以|分隔,此竖杠是英文半角的，最好复制此|</label><br/><br/>
+            </div>
+
+            <div class="box-content" style="margin-right:400px;">
+				<!--酒店信息-->
+				<form id="hotel" action="${ac.contextPath}/hotel/save" data-toggle="validator" method="post" class="form-horizontal">
+                        <!--id-->
+        				#if($!{hotel.id})
+                          <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >酒店id:</label>
+                            <div class="col-sm-10">
+                              <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                     id="id" name="id"  value="$!hotel.id" readonly />
+                            </div>
+                          </div>
+        				#end
+
+                        <!--名字-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>名字:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="cnName" name="cnName" value="$!hotel.cnName" placeholder="不能大于32个字符"
+                                       required data-required-error="名字不能为空"
+                                       data-minlength="2" data-minlength-error="名字不能少于2个字符"
+                                       pattern=".{2,32}" data-pattern-error="名字不能大于32个字符"/>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--副标题-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >副标题:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="subTitle" name="subTitle" value="$!hotel.subTitle"  placeholder="不能大于64个字符"
+                                       pattern=".{2,64}" data-pattern-error="副标题不能大于64个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--关键字-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >标签:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="label" name="label"  value="$!hotel.label" placeholder="标签以|分隔,不能大于64个字符"
+                                       pattern=".{2,64}" data-pattern-error="标签不能大于64个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--酒店大类型-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>酒店大类型:</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" id="type" name="type" onchange="" >
+                                    #foreach($e in $fatherList)
+                                        <option value='$e.code' #if($!hotel.type == $e.code) selected #end>${e.name}</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--酒店子类型-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>酒店子类型:</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" id="subType" name="subType" onchange="" >
+                                    #foreach($e in $subList)
+                                        <option value='$e.code' #if($!hotel.subType == $e.code) selected #end>${e.name}</option>
+                                    #end
+                                    <option value='-99' >其他</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--子类型其他描述-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label">子类型其他描述:</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control"  id="subTypeDesc" name="subTypeDesc"  value="$!hotel.subTypeDesc"
+                                       placeholder="不能大于64个字符"
+                                       pattern=".{2,64}" data-pattern-error="其他不能大于64个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--星等级-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >星等级:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" style="width:45%;display: inline;" id="level" name="level" onchange="" >
+                                    #foreach($e in $levelList)
+                                        <option value='$e.code' #if($!hotel.level == $e.code) selected #end>${e.name}</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--地址-->
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" >地址:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="address" name="address" value="$!hotel.address"
+                                       placeholder="地址不能大于128个字符"
+                                       pattern=".{2,128}" data-pattern-error="地址不能大于128个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--经度-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>经度:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="longitude" name="longitude" value="$!hotel.longitude" placeholder="请填写小数或者整数"
+                                       required data-required-error="经度不能为空"
+                                       pattern="(-)?\d+(\.\d+)?" data-pattern-error="请填写小数或者整数"
+                                        />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--纬度-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>纬度:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="latitude" name="latitude" value="$!hotel.latitude" placeholder="请填写小数或者整数"
+                                       required data-required-error="纬度不能为空"
+                                       pattern="(-)?\d+(\.\d+)?" data-pattern-error="请填写小数或者整数"
+                                        />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--跳转地址
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>跳转地址:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="jumpUrl" name="jumpUrl" value="$!hotel.jumpUrl"
+                                       placeholder="跳转地址"
+                                       pattern="[a-zA-z]+://[^\s]*" data-pattern-error="请填写有效跳转地址"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>-->
+
+                        <!--手机号-->
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" >电话:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phone" name="phone"
+                                       placeholder="电话号码" value="$!hotel.phone" />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--酒店简介-->
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>酒店/民宿简介:</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="desc" name="desc"
+                                       placeholder="酒店/民宿不能大于2048个字符"
+                                       maxlength="2048"
+                                >$!hotel.desc</textarea>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--滑动图片地址-->
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">
+                                <font color="red" size="5">*</font>滑动图片地址:</label>
+                            <div class="col-sm-10">
+                                <div id="container">
+                                    <a href="javascript:void(0)" class="file">选择文件
+                                        <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                        <input type="hidden" id="bannerPicUrl" name="bannerPicUrl" value="$!hotel.bannerPicUrl" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+##                        <div class="form-group">
+##                            <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>滑动图片地址:</label>
+##                            <div class="col-sm-10">
+##                                <input type="text" class="form-control" id="bannerPicUrl" name="bannerPicUrl" value="$!hotel.bannerPicUrl"  readonly />
+##                                <div class='upload_box'>
+##                                    <div class='upload_main'>
+##                                        <div class='upload_choose'>
+##                                            <div id='formId2'>
+##                                                <a href="javascript:void(0)" class="file">选择文件
+##                                                    <input id='fileImage2' type='file' multiple name='imgFile'
+##                                                           accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                                </a>
+##                                            </div>
+##                                            <span id='fileDragArea2' class='upload_drag_area'>或者将图片拖到此处</span>
+##                                        </div>
+##                                        <ul id='preview2' class='upload_preview'></ul>
+##                                    </div>
+##                                    <div class='upload_submit'>
+##                                        <input type='submit'  id='submit2' class='upload_submit_btn' value='上传图片' />
+##                                    </div>
+##                                    <div id="uploadInf2" class="upload_inf"></div>
+##                                </div>
+##                                <div class="help-block with-errors"></div>
+##                            </div>
+##                        </div>
+
+                    <!--简介图片地址-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>简介图片地址:</label>
+                        <div class="col-sm-10">
+                            <div id="container1">
+                                <a href="javascript:void(0)" class="file">选择文件
+                                    <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                    <input type="hidden" id="picUrl" name="picUrl" value="$!hotel.picUrl" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+##                        <!--简介图片地址-->
+##                        <div class="form-group">
+##                            <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>简介图片地址:</label>
+##                            <div class="col-sm-10">
+##                                <input type="text" class="form-control" id="picUrl" name="picUrl" value="$!hotel.picUrl"  readonly />
+##                                <div class='upload_box'>
+##                                    <div class='upload_main'>
+##                                        <div class='upload_choose'>
+##                                            <div id='formId1'>
+##                                                <a href="javascript:void(0)" class="file">选择文件
+##                                                    <input id='fileImage1' type='file' multiple name='imgFile' accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                                </a>
+##                                            </div>
+##                                            <span id='fileDragArea1' class='upload_drag_area'>或者将图片拖到此处</span>
+##                                        </div>
+##                                        <ul id='preview1' class='upload_preview'></ul>
+##                                    </div>
+##                                    <div class='upload_submit'>
+##                                        <input type='submit' id='submit1' class='upload_submit_btn' value='上传图片' />
+##                                    </div>
+##                                    <div id="uploadInf1" class="upload_inf"></div>
+##                                </div>
+##                                <div class="help-block with-errors"></div>
+##                            </div>
+##                        </div>
+
+                        <!--营业描述-->
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label" >营业描述:</label>
+                            <div class="col-sm-10">
+##                                <textarea class="form-control"
+##                                       id="openTimeDesc" name="openTimeDesc"  placeholder="营业描述不能大于20个字符"
+##                                          maxlength="2048"
+##                                >$!hotel.openTimeDesc</textarea>
+                                 <input type="text" class="form-control" id="openTimeDesc" name="openTimeDesc" value="$!hotel.openTimeDesc"
+                                    placeholder="营业描述" pattern=".{2,20}" data-pattern-error="营业描述不能大于20个字符" />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn-primary">提交</button>
+                        </div>
+                    </div>
+				</form>
+            </div>
+        </div>
+	</div>
+</div>
+
+
+    <script>
+
+	// 页面初始化
+	$(function(){
+        data =  eval($!bannerPicUrlListStr);
+        data1 =  eval($!picUrlListStr);
+        upload('container',data,'hotel');
+        upload('container1',data1,'hotel');
+    });
+
+    $('#hotel').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            layer.msg('亲,请将信息填写完整呀~', {icon: 5});
+        } else {
+            var data = $('#hotel').serialize();
+            console.log(data);
+            layer.load(0, {shade: false});
+            $.ajax({
+                type: 'POST',
+                url: basePath + '/manage/hotel/save',
+                data: data,
+                success: function (res) {
+                    layer.closeAll("loading");
+                    if (res.code == 1) {
+//                        layer.msg(res.msg, {icon:6});
+                        layer.msg(res.msg, {
+                            icon: 6,
+                            time: 3000
+                        });
+                        window.location = basePath + "/manage/hotel/query";
+                    } else {
+//                        layer.msg(res.msg, {icon: 10});
+                        layer.msg(res.msg, {
+                            icon: 10,
+                            time: 3000
+                        });
+                    }
+                },
+                error: function () {
+                    layer.closeAll("loading");
+//                    layer.msg("提交失败,请重试", {icon: 5});
+                    layer.msg("提交失败,请重试", {
+                        icon: 5,
+                        time: 3000
+                    });
+                }
+            });
+
+        }
+        return false;
+    });
+
+	
+    </script>

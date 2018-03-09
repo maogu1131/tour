@@ -1,0 +1,153 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+	
+	/**矩阵配置的样式***/
+    #wizard div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+        margin: 0;
+    }
+	/**border:5px solid #789;**/
+    #wizard {font-size:12px;min-height:700px;margin:20px auto;width:850px;overflow:hidden;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;}
+    #wizard .items{width:20000px;clear:both; position:absolute;}
+    #wizard .right{float:right;}
+    /**#wizard #status{height:35px;background:#123;padding-left:25px !important;}**/
+	#wizard #status{height:35px;background-color: #f5f5f5;border-radius: 4px;padding-left:25px !important;}   
+	/**color:#fff;**/
+    #status li{float:left;color: #555555;padding:10px 30px;list-style-type:none;}
+    /**#status li.active{background-color:#369;font-weight:normal;}**/
+	#status li.active{background-color:#d9edf7;font-weight:normal;}
+    .input{width:240px; height:18px; margin:10px auto; line-height:20px; border:1px solid #d3d3d3; padding:2px}
+    .page{padding:20px 30px;width:850px;float:left;}
+    .page h3{height:42px; font-size:16px; border-bottom:1px dotted #ccc; margin-bottom:20px; padding-bottom:5px}
+    .page h3 em{font-size:12px; font-weight:500; font-style:normal}
+    .page p{line-height:24px;}
+    .page p label{font-size:14px; display:block;}
+    .btn_nav{height:36px; line-height:36px; margin:20px auto;}
+    .prev,.next{cursor: pointer;}
+	.table tr{height:50px;}
+	.table tr td {font-size: 15px;color: #555555;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+	.table tr td input{height:30px;}
+	.sm-td tr{height:35px;}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/publicService/query">公共服务管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/publicService/init">新建公共服务</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data
+                  icon-edit"></i>公共服务详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   #if($!{syPublicService.id})
+                       <div class = "form-group">
+                           <label for="name" class="col-sm-2 control-label" >公共服务id:</label>
+                           <div class="col-sm-10">
+                               <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!syPublicService.id" disabled>
+                           </div>
+                       </div>
+                   #end
+
+
+                   <!--公共服务名称-->
+                   <div class="form-group">
+                       <label for="name" class="col-sm-2 control-label">
+                           <font color="red" size="5">*</font>公共服务名称:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="name"
+                                  name="name" value="$!syPublicService.name" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="desc" name="desc"
+                                  value="$!syPublicService.desc" disabled/>
+                       </div>
+                   </div>
+                   <!--地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="address" name="address"
+                                  value="$!syPublicService.address" disabled/>
+                       </div>
+                   </div>
+
+                   <!--电话-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>电话:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="phone" name="phone"
+                                  value="$!syPublicService.phone" disabled>
+                       </div>
+                   </div>
+
+                   <!--注意事项-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">注意事项:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="tips" name="tips"
+                                      placeholder="注意事项" disabled>$!syPublicService.tips</textarea>
+                       </div>
+                   </div>
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

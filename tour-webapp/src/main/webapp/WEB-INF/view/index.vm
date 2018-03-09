@@ -1,0 +1,16 @@
+#set($layout = "/layout/layout-blank.vm")
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta name="keywords" content="#" />
+    <link href="${ac.contextPath}/resources/login/css/style.css" rel='stylesheet' type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+<body>
+<div class="main">
+    <div class="main_top">游松阳欢迎你</div>
+
+    <div class="main_foot">Power by 虚壹科技</div>
+</div>
+</body>
+</html>

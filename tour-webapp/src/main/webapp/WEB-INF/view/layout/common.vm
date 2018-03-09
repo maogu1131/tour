@@ -1,0 +1,183 @@
+<!-- The styles -->
+<!--皮肤-->
+<link id="bs-css" href="${ac.contextPath}/resources/charisma-master/css/bootstrap-cerulean.min.css" rel="stylesheet">
+
+<link href="${ac.contextPath}/resources/charisma-master/css/charisma-app.css" rel="stylesheet">
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/fullcalendar/dist/fullcalendar.css'
+      rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/fullcalendar/dist/fullcalendar.print.css'
+      rel='stylesheet' media='print'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/chosen/chosen.min.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/colorbox/example3/colorbox.css'
+      rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/responsive-tables/responsive-tables.css'
+      rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/bootstrap-tour/docs/assets/css/bootstrap-tour.min.css'
+      rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/jquery.noty.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/noty_theme_default.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/elfinder.min.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/elfinder.theme.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/jquery.iphone.toggle.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/uploadify.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/css/animate.min.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/icheck-1.x/skins/square/blue.css' rel='stylesheet'>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/select2/css/select2-bootstrap.min.css'/>
+<link href='${ac.contextPath}/resources/charisma-master/bower_components/select2/css/select2.min.css' rel='stylesheet'>
+
+<!--构建多个tab-->
+<link href='${ac.contextPath}/resources/js/easyui/themes/default/easyui.css' rel="stylesheet" />
+<link href='${ac.contextPath}/resources/js/easyui/themes/icon.css' rel="stylesheet" />
+
+<!--预览图片-->
+<link href='${ac.contextPath}/resources/preview/preview.css' rel="stylesheet" />
+
+
+<!-- jQuery -->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/jquery/jquery.min.js"></script>
+<!-- bootstrap -->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- url的logo -->
+<link rel="shortcut icon" href="${ac.contextPath}/resources/charisma-master/img/favicon.ico">
+
+<!-- library for cookie management -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.cookie.js"></script>
+<!-- calender plugin -->
+<script src='${ac.contextPath}/resources/charisma-master/bower_components/moment/min/moment.min.js'></script>
+<script src='${ac.contextPath}/resources/charisma-master/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+<!-- data table plugin -->
+<script src='${ac.contextPath}/resources/charisma-master/js/jquery.dataTables.min.js'></script>
+
+<!-- select or dropdown enhancer -->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/chosen/chosen.jquery.min.js"></script>
+<!-- plugin for gallery image view -->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/colorbox/jquery.colorbox-min.js"></script>
+<!-- notification plugin -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.noty.js"></script>
+<!-- library for making tables responsive -->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/responsive-tables/responsive-tables.js"></script>
+<!-- tour plugin -->
+#*<script src="${ac.contextPath}/resources/charisma-master/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>*#
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/bootstrap-tour/docs/assets/js/bootstrap-tour.min.js"></script>
+<!-- star rating plugin -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.raty.min.js"></script>
+<!-- for iOS style toggle switch -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.iphone.toggle.js"></script>
+<!-- autogrowing textarea plugin -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.autogrow-textarea.js"></script>
+<!-- multiple file upload plugin -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.uploadify-3.1.min.js"></script>
+<!-- history.js for cross-browser state change on ajax -->
+<script src="${ac.contextPath}/resources/charisma-master/js/jquery.history.js"></script>
+<!-- application script for Charisma demo -->
+<script src="${ac.contextPath}/resources/charisma-master/js/charisma.js"></script>
+<!-- step by step -->
+<script src="${ac.contextPath}/resources/charisma-master/js/scrollable.js"></script>
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/jquery.bootstrap/jquery.bootstrap.min.js"></script>
+<!-- select2 -->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/select2/js/select2.js"></script>
+<!---->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/icheck-1.x/icheck.min.js"></script>
+<!--validator-->
+<script src="${ac.contextPath}/resources/charisma-master/bower_components/bootstrap-validator/validator.js"></script>
+
+<!--ajaxfileupload-->
+<script src="${ac.contextPath}/resources/js/ajaxfileupload/ajaxfileupload.js"></script>
+<!-- layer -->
+<script src="${ac.contextPath}/resources/js/layer/layer.js"></script>
+<!-- my97 -->
+<script src="${ac.contextPath}/resources/js/My97DatePicker/WdatePicker.js"></script>
+
+
+<!--图片导入-->
+<link href="${ac.contextPath}/resources/imgupload/css/imgupload.css" rel="stylesheet"/>
+<script type="text/javascript" src="${ac.contextPath}/resources/imgupload/js/imgupload.js"></script>
+
+<!--富文本-->
+<link href="${ac.contextPath}/resources/kindeditor/themes/default/default.css" rel="stylesheet" />
+<script type="text/javascript" src="${ac.contextPath}/resources/kindeditor/kindeditor-all.js"></script>
+<script type="text/javascript" src="${ac.contextPath}/resources/kindeditor/lang/zh_CN.js"></script>
+
+<!--easyui-->
+<script  src="${ac.contextPath}/resources/js/easyui/jquery.easyui.min.js"></script>
+
+<!--tab-->
+<link href='${ac.contextPath}/resources/js/linkageTab/tab.css' rel="stylesheet" />
+<script  src="${ac.contextPath}/resources/js/linkageTab/tabs.js"></script>
+<script  src="${ac.contextPath}/resources/js/linkageTab/addTab.js"></script>
+
+<!--呵呵代码-->
+##<script  src="${ac.contextPath}/resources/phone/static/home.js"></script>
+##<script  src="${ac.contextPath}/resources/phone/static/home.js.map"></script>
+
+
+
+<script>
+    var basePath = "${ac.contextPath}";
+    // 富文本编辑器用-图片前缀
+   //本地测试 var imgPrefix = "http://localhost:8080/img/showPic?imgPath=D:";
+
+    var imgPrefix = "http://115.239.255.114:8888/img/showPic?imgPath=/data/www/upload_pic";
+
+
+    // 调用图片上传功能
+    function upload(id,data,module){
+##        $(".upload_submit").hide();
+##        var params = {
+##            fileInput: $('#fileImage'+idx)[0],
+##            dragDrop: $('#fileDragArea'+idx)[0],
+##            upBotton: $('#submit'+idx)[0],
+##            url: "${ac.contextPath}/img/upload",
+##            urlStore:urlStore,
+##            idx:idx,
+##            onDelete: function(file) {
+##                $("#uploadList"+idx+"_" + file.index).eq(0).fadeOut();
+##                // 刷新'选择文件'
+##                $('#fileImage'+idx).val('');
+##            },
+##            onDragOver: function() {
+##                $(this).addClass('upload_drag_hover');
+##            },
+##            onDragLeave: function() {
+##                $(this).removeClass('upload_drag_hover');
+##            },
+##            onProgress: function(file, loaded, total) {
+##                var eleProgress = $("#uploadProgress"+idx+"_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+##                eleProgress.show().html(percent);
+##            },
+##            onSuccess: function(file, response) {
+##                $("#uploadInf"+idx).append("<p>上传成功，图片地址是：" + response + "</p>");
+##            },
+##            onFailure: function(file) {
+##                $("#uploadInf"+idx).append("<p>图片" + file.name + "上传失败！</p>");
+##            },
+##            onComplete: function() {
+##                // 成功提示
+##                $("#uploadInf"+idx).append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+##            }
+##        };
+##        var html5 = new ImgUpload(params);
+
+
+//        var data = [
+//            {
+//                "url": 'D:/20171025/20171025000619_01.png'
+//            },
+//        ];
+
+        var params = {
+//            container: '#container',
+            container: '#'+id,
+            url: basePath+'/img/upload?module='+module,
+//            ,
+            data: data
+//            dragDrop: false,
+//            data: data,
+//            onDragLeave: function(target) {
+//                console.log(111)
+//            }
+        };
+        new UploadImg(params);
+    }
+</script>

@@ -1,0 +1,214 @@
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/guide/query">查询导游</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/guide/init">新建导游</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+   <div class="box col-md-12">
+       <div class="box-inner">
+           <div class="box-header well" data-original-title="">
+               <h2><i class="glyphicon glyphicon-edit"></i> 导游查询</h2>
+               <div class="box-icon">                  
+                   <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                           class="glyphicon glyphicon-chevron-up"></i></a>
+               </div>
+           </div>
+           
+           <div class="box-content">
+               <form class="form-inline" id="searchForm" action="${ac.contextPath}/guide/query" method="post" data-toggle="validator">
+                   <table class="table">
+                       <tbody>
+                           <tr>
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">导游ID</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="id" name="id" value="$!guide.id" />
+                                       </div>
+                                   </div>
+                               </td>
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">名称</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="name" name="name" value="$!guide.name" />
+                                       </div>
+                                   </div>
+                               </td>
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">关键字</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="keyWord" name="keyWord" value="$!guide.keyWord" />
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                           <tr>
+							   <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">电话</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="phone" name="phone" value="$!guide.phone" />
+                                       </div>
+                                   </div>
+                               </td>
+
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">状态</label>
+                                       <div class="form-left-15" >
+                                           <select class="form-control" id="status" name="status" >
+                                               <option value="">全部</option>
+                                               <option value=1 #if($!guide.status == 1) selected #end>有效</option>
+                                               <option value=-1 #if($!guide.status == -1) selected #end>删除</option>
+                                           </select>
+                                       </div>
+                                   </div>
+                               </td>
+                               <td>
+                                   <div class="form-group" style="float:right">
+                                       <button type="submit" class="btn btn-primary"> 查 询 </button>
+                                   </div>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                   
+                   <input type="hidden" id="pageNo" name="pageNo" value="$!{query.pageNo}"/>
+				   <input type="hidden" id="pageCount" name="pageCount" value="$!{query.pageCount}"/>
+               </form>
+           </div>
+       </div>
+   </div>
+   <!--/span-->
+</div><!--/row-->
+
+<div class="row">
+   <div class="box col-md-12">
+       <div class="box-inner">
+           <div class="box-header well" data-original-title="">
+               <h2><i class="glyphicon glyphicon-edit"></i> 导游列表</h2>
+               <div class="box-icon">
+                 <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                           class="glyphicon glyphicon-chevron-up"></i></a>
+               </div>
+           </div>
+           <div class="box-content">
+               <!--  datatable -->
+            <table class="table table-striped table-bordered bootstrap-datatable responsive">
+                <thead>
+                <tr>
+                    <th>导游id</th>
+                    <th>名字</th>
+                    <th>电话</th>
+                    <th>简介</th>
+					<th>关键字</th>
+					<th>头像</th>
+					<th>状态</th>
+                    <th>创建时间</th>
+                    <th>修改时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                #foreach($v in $list )
+                <tr>
+                    <td>$!{v.id}</td>
+                    <td>$!{v.name}</td>
+                    <td>$!{v.phone}</td>
+                    <td>$!{v.desc}</td>
+					<td>$!{v.keyWord}</td>
+
+                    <td class="imgbox">
+                        <a href="#" id=$pic class="J_msg"
+                           data-toggle="popover">预览头像</a>
+                        <div class="min_content popover right" id="pic$pic">
+                            <div class="arrow" style="top: 50%;"></div>
+                            <div class="popover-content">
+                                #foreach($pic in $v.picUrlList)
+                                    <img src="$!{pic}" height="80" width="250"/>
+                                #end
+                            </div>
+                        </div>
+                    </td>
+
+					<td> #if($!{v.status} == 1) 有效 #else 删除 #end </td>
+                    <td>$!date.format('yyyy-MM-dd HH:mm:ss',$!{v.createTime})</td>
+                    <td>$!date.format('yyyy-MM-dd HH:mm:ss',$!{v.modifyTime})</td>
+                    <td class="center">
+                        <a class="btn btn-success" href="#" onclick="javascript:window.open('${ac.contextPath}/manage/guide/detail?id=${v.id}');">
+                            <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                            查看
+                        </a>
+                        <a class="btn btn-primary" href="#"
+								onclick="javascript:window.open('${ac.contextPath}/manage/guide/edit?id=${v.id}');"
+                            <i class="glyphicon glyphicon-edit icon-white"></i>
+                            编辑
+                        </a>
+                        #if($!{v.status} == 1)
+                        <a class="btn btn-danger" href="#" onclick="update(${v.id},-1);">
+                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                            删除
+                        </a>
+                        #else
+                        <a class="btn btn-info" href="#" onclick="update(${v.id},1);">
+                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                            恢复
+                        </a>
+                        #end
+                    </td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+			<!-- 引用common下面的分页 -->
+			#parse("/common/page.vm")
+
+        </div>
+    </div>
+</div>
+<!--/span-->
+</div><!--/row-->
+
+<script>
+
+// 删除导游
+function update(id,status){
+	var p = {
+		id : id,
+        status:status
+	};
+
+    $.ajax({
+		type: "POST",
+		url: "${ac.contextPath}/manage/guide/update",
+		data: p,
+		dataType: "JSON",
+        success: function(res){
+            if(res.code == 1){
+                layer.msg(res.msg, {icon:6},function () {
+                    $("#searchForm").submit();
+                });
+            }else{
+                layer.msg(res.msg, {icon: 10});
+            }
+        },
+        error:function(){
+            layer.msg("提交失败,请重试", {icon: 5});
+            //setTimeout("window.location.reload()", 2000);//2秒后刷新
+        }
+	});
+}
+
+// 页面初始化函数
+$(function(){
+});
+</script>
+

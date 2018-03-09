@@ -1,0 +1,242 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/folk/query">民俗活动管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/folk/init">新建民俗活动</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i>民俗活动详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >民俗活动id:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!folk.id" disabled>
+                       </div>
+                   </div>
+
+                   <!--中文名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >活动标题:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="title" name="title" value="$!folk.title" disabled />
+                       </div>
+                   </div>
+
+                   <!--热度-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >是否热度:</label>
+                       <div class="col-sm-3">
+                           <select class="form-control" id="hot" name="hot" disabled>
+                               <option value='1' #if($!folk.hot == 1) selected #end>不热</option>
+                               <option value='2' #if($!folk.hot == 2) selected #end>热</option>
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--地址-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="address" name="address" value="$!folk.address" disabled>
+                       </div>
+                   </div>
+
+                   <!--经度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >经度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="longitude" name="longitude" value="$!folk.longitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--纬度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>纬度:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="latitude" name="latitude"
+                                  value="$!folk.latitude" disabled />
+                       </div>
+                   </div>
+
+                   <!--开始时间-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>开始时间:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!date.format('yyyy-MM-dd HH:mm:ss',$!{folk.startTime})" disabled />
+                       </div>
+                   </div>
+
+                   <!--结束时间-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>结束时间:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!date.format('yyyy-MM-dd HH:mm:ss',$!{folk.endTime})" disabled />
+                       </div>
+                   </div>
+
+                   <!--开关-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>状态:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control"  style="width:30%" disabled>
+                               <option value=1 #if($!folk.onOff == 1) selected #end>正常</option>
+                               <option value=2 #if($!folk.onOff == 2) selected #end>删除</option>
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--预定电话-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >预定电话:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:30%;display: inline;"  class="form-control"
+                                  value="$!folk.phone" disabled />
+                       </div>
+                   </div>
+
+                   <!--banner地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >banner地址:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $bannerUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+
+
+                   <!--活动详情描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >活动详情描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control"
+                                  value="$!folk.desc" disabled />
+                       </div>
+                   </div>
+
+                   <!--活动详情地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >活动详情地址:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $picUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--收费描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >收费描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control"
+                                  value="$!folk.chargeDesc" disabled />
+                       </div>
+                   </div>
+
+                   <!--特色描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >特色描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control"
+                                  value="$!folk.specialDesc" disabled />
+                       </div>
+                   </div>
+
+                   <!--特色文化图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >特色文化图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $specialPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--活动游玩提示-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >活动游玩提示:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!folk.playTips" disabled />
+                       </div>
+                   </div>
+
+			 </form>
+            </div>
+			
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

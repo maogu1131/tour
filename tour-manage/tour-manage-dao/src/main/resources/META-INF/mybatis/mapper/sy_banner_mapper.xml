@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyBanner" >
+
+    <resultMap id="SyBannerMap" type="com.songyang.tour.pojo.SyBanner">
+        <result column="id" property="id" />
+        <result column="desc" property="desc" />
+        <result column="type" property="type" />
+        <result column="biz_type" property="bizType" />
+        <result column="module_type" property="moduleType" />
+        <result column="status" property="status" />
+        <result column="pic_url" property="picUrl" />
+        <result column="content" property="content" />
+        <result column="remark" property="remark" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `desc`,
+        `type`,
+        `biz_type`,
+        `module_type`,
+        `status`,
+        `pic_url`,
+        `content`,
+        `remark`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{desc},
+        #{type},
+        #{bizType},
+        #{moduleType},
+        #{status},
+        #{picUrl},
+        #{content},
+        #{remark},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="desc != null">
+            AND `desc` like CONCAT ('%',#{desc},'%')
+        </if>
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+        <if test="status != null">
+            AND `status` = #{status} 
+        </if>
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode.mode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_banner 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_banner
+        <set>
+            <if test="desc != null"> `desc`=#{desc},</if>
+            <if test="type != null"> `type`=#{type},</if>
+            <if test="bizType != null"> `biz_type`=#{bizType},</if>
+            <if test="moduleType != null"> `module_type`=#{moduleType},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="content != null"> `content`=#{content},</if>
+            <if test="remark != null"> `remark`=#{remark},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyBannerMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_banner
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyBannerMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_banner
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_banner where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyBannerMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_banner
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_banner
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i> 评价查询</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="box-content">
+                <form class="form-inline" id="searchForm" action="${ac.contextPath}/manage/evaluate/query" method="post"
+                      data-toggle="validator">
+
+                    <input type="hidden" id="aEffectId" name="aEffectId" value="$!{evaluate.aEffectId}"/>
+                    <input type="hidden" id="pageNo" name="pageNo" value="$!{query.pageNo}"/>
+                    <input type="hidden" id="pageCount" name="pageCount" value="$!{query.pageCount}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div><!--/row-->
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i> 评价列表</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <table class="table table-striped table-bordered bootstrap-datatable responsive">
+                    <thead>
+                    <tr>
+                        <th>评价商品id</th>
+                        <th>评价商品名称</th>
+                        <th>评价等级</th>
+                        <th>评价内容</th>
+                        <th>评价表情</th>
+                        <th>用户id</th>
+                        <th>用户名称</th>
+                        <th>状态</th>
+                        <th>评价时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        #foreach($v in $list )
+                        <tr>
+                            <td>$!{v.aEffectId}</td>
+                            <td>$!{v.aEffectName}</td>
+                            <td>$!{v.effectLevel}</td>
+                            <td>$!{v.effectContent}</td>
+
+                            <td class="imgbox">
+                                <a href="#" id=$picclass="J_msg"
+                                   data-toggle="popover">评价表情</a>
+                                <div class="min_content popover right" id="pic$pic">
+                                    <div class="arrow" style="top: 50%;"></div>
+                                    <div class="popover-content">
+                                        #foreach($pic in $v.picUrlList)
+                                            <img src="$!{pic}" height="80" width="250"/>
+                                        #end
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>$!{v.bEffectId}</td>
+                            <td>$!{v.bEffectName}</td>
+
+                            <td> #if($!{v.status} == 1) 正常 #elseif($!{v.status} == -1) 删除 #end</td>
+                            <td>$!date.format('yyyy-MM-dd HH:mm:ss',$!{v.effectTime})</td>
+
+                            <td class="center">
+                                <a class="btn btn-success" href="#"
+                                   onclick="javascript:window.open('${ac.contextPath}/manage/evaluate/detail?id=${v.id}');">
+                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                    查看
+                                </a>
+                                #if($!{v.status} == 1)
+                                    <a class="btn btn-danger" href="#" onclick="update(${v.id},-1);">
+                                        <i class="glyphicon glyphicon-trash icon-white"></i>
+                                        删除
+                                    </a>
+                                #end
+                            </td>
+                        </tr>
+                        #end
+                    </tbody>
+                </table>
+                <!-- 引用common下面的分页 -->
+                #parse("/common/page.vm")
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div><!--/row-->
+
+<script>
+
+    // 删除评价
+    function update(id, status) {
+        var p = {
+            id: id,
+            status: status
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "${ac.contextPath}/manage/evaluate/update",
+            data: p,
+            dataType: "JSON",
+            success: function(res){
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon:6},function () {
+                        $("#searchForm").submit();
+                    });
+                }else{
+                    layer.msg(res.msg, {icon: 10});
+                }
+            },
+            error:function(){
+                layer.msg("提交失败,请重试", {icon: 5});
+                //setTimeout("window.location.reload()", 2000);//2秒后刷新
+            }
+        });
+    }
+
+    // 页面初始化函数
+    $(function () {
+    });
+</script>
+

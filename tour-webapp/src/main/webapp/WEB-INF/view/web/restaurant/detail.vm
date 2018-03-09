@@ -1,0 +1,255 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+	
+	/**矩阵配置的样式***/
+    #wizard div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+        margin: 0;
+    }
+	/**border:5px solid #789;**/
+    #wizard {font-size:12px;min-height:700px;margin:20px auto;width:850px;overflow:hidden;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;}
+    #wizard .items{width:20000px;clear:both; position:absolute;}
+    #wizard .right{float:right;}
+    /**#wizard #status{height:35px;background:#123;padding-left:25px !important;}**/
+	#wizard #status{height:35px;background-color: #f5f5f5;border-radius: 4px;padding-left:25px !important;}   
+	/**color:#fff;**/
+    #status li{float:left;color: #555555;padding:10px 30px;list-style-type:none;}
+    /**#status li.active{background-color:#369;font-weight:normal;}**/
+	#status li.active{background-color:#d9edf7;font-weight:normal;}
+    .input{width:240px; height:18px; margin:10px auto; line-height:20px; border:1px solid #d3d3d3; padding:2px}
+    .page{padding:20px 30px;width:850px;float:left;}
+    .page h3{height:42px; font-size:16px; border-bottom:1px dotted #ccc; margin-bottom:20px; padding-bottom:5px}
+    .page h3 em{font-size:12px; font-weight:500; font-style:normal}
+    .page p{line-height:24px;}
+    .page p label{font-size:14px; display:block;}
+    .btn_nav{height:36px; line-height:36px; margin:20px auto;}
+    .prev,.next{cursor: pointer;}
+	.table tr{height:50px;}
+	.table tr td {font-size: 15px;color: #555555;font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+	.table tr td input{height:30px;}
+	.sm-td tr{height:35px;}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/restaurant/query">餐馆管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/restaurant/init">新建餐馆</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data
+                  icon-edit"></i>餐馆详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   #if($!{syRestaurant.id})
+                       <div class = "form-group">
+                           <label for="name" class="col-sm-2 control-label" >餐馆id:</label>
+                           <div class="col-sm-10">
+                               <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!syRestaurant.id" disabled>
+                           </div>
+                       </div>
+                   #end
+
+
+                   <!--中文名字-->
+                   <div class="form-group">
+                       <label for="name" class="col-sm-2 control-label">
+                           <font color="red" size="5">*</font>中文名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="cnName"
+                                  name="cnName" value="$!syRestaurant.cnName" disabled/>
+                       </div>
+                   </div>
+
+                   <!--英文名字-->
+                   <div class="form-group">
+                       <label for="name" class="col-sm-2 control-label">英文名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="enName"
+                                  name="enName" value="$!syRestaurant.enName" disabled>
+                       </div>
+                   </div>
+
+
+                   <!--餐馆类型-->
+                   <div class="form-group">
+                       <label for="name" class="col-sm-2 control-label">
+                           <font color="red" size="5">*</font>餐馆类型:</label>
+                       <div class="col-sm-3">
+                           <select class="form-control" id="type" name="type" disabled>
+                               #foreach($e in $restaurantTypeList)
+                                   <option value=$e.code #if($!syRestaurant.type == $e.code)
+                                           selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+
+                   <!--标签-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">标签:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="label" name="label"
+                                  value="$!syRestaurant.label" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--人均消费-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>人均消费:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="perPayDesc" name="perPayDesc"
+                                  value="$!syRestaurant.perPayDesc" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="address" name="address"
+                                  value="$!syRestaurant.address" disabled/>
+                       </div>
+                   </div>
+
+                   <!--经度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>经度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="longitude" name="longitude" value="$!syRestaurant.longitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--纬度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>纬度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="latitude" name="latitude" value="$!syRestaurant.latitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+
+                   <!--电话-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>电话:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;" class="form-control" id="phone" name="phone"
+                                  value="$!syRestaurant.phone" disabled/>
+                       </div>
+                   </div>
+
+                   <!--餐馆简介-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label"><font color="red" size="5">*</font>餐馆简介:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="desc" name="desc"
+                                  value="$!syRestaurant.desc" disabled/>
+                       </div>
+                   </div>
+
+
+                   <!--banner滑动图片-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">banner滑动图片:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $bannerPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $picUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+
+                   <!--开放时间描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">开放时间描述:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="openTimeDesc" name="openTimeDesc" disabled>$!syRestaurant.openTimeDesc</textarea>
+                       </div>
+                   </div>
+
+
+                   <!--交通描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label">交通描述:</label>
+                       <div class="col-sm-10">
+                            <textarea class="form-control" id="trafficDesc" name="trafficDesc" disabled>$!syRestaurant.trafficDesc</textarea>
+                       </div>
+                   </div>
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

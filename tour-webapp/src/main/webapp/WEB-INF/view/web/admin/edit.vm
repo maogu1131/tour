@@ -1,0 +1,134 @@
+<style type="text/css">
+    .diy-checkbox {
+        margin: 15px 0px !important;
+    }
+
+    .from-control-diy {
+        display: inline;
+    }
+
+    .disabled-diy {
+        background-color: #EBEBE4;
+    }
+</style>
+
+##set($id="$!{syAdminUser.id}")
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/admin/superAdminPassInit">编辑超级管理员</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/admin/addAdminInit">添加普通管理员</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/admin/query">普通管理员列表</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit">添加普通管理员</i></h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="box-content" style="margin-right:400px;">
+                <!--banner配置信息-->
+                <form id="syAdminUser" action="${ac.contextPath}/manage/admin/addAdmin" data-toggle="validator" method="post"
+                      class="form-horizontal">
+                    <!--id-->
+                    <input type="hidden" id="id" name="id" value="$!{syAdminUser.id}"/>
+                    <!--id-->
+                    #if($!{syAdminUser.id})
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">adminId:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;" class="form-control"
+                                       value="$!syAdminUser.id" disabled>
+
+                            </div>
+                        </div>
+                    #end
+
+                    <!--用户名-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>普通管理员用户名:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="userName" name="userName" value="$!syAdminUser.userName"
+                                   placeholder="支持字母、数字、符合" required data-required-error="用户名不能为空"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--密码-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>普通管理员密码:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   id="password" name="password" value="$!syAdminUser.password"
+                                   placeholder="支持字母、数字、符合" required data-required-error="密码不能为空"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    // 页面初始化
+    $(function () {
+
+    });
+
+    $('#syAdminUser').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            layer.msg('亲,请将信息填写完整呀~', {icon: 5});
+        } else {
+            var data = $('#syAdminUser').serialize();
+            console.log(data);
+            layer.load(0, {shade: false});
+            $.ajax({
+                type: 'POST',
+                url: basePath + '/manage/admin/addAdmin',
+                data: data,
+                success: function (res) {
+                    layer.closeAll("loading");
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon: 6});
+                        window.location = basePath + "/manage/admin/query";
+                    } else {
+                        layer.msg(res.msg, {icon: 10});
+                    }
+                },
+                error: function () {
+                    layer.closeAll("loading");
+                    layer.msg("提交失败,请重试", {icon: 5});
+                }
+            });
+
+        }
+        return false;
+    });
+
+</script>

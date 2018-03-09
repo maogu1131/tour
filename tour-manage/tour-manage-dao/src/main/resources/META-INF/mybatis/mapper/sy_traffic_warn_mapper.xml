@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyTrafficWarn" >
+
+    <resultMap id="SyTrafficWarnMap" type="com.songyang.tour.pojo.SyTrafficWarn">
+        <result column="id" property="id" />
+        <result column="status" property="status" />
+        <result column="traffic_status" property="trafficStatus" />
+        <result column="jump_url" property="jumpUrl" />
+        <result column="content" property="content" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="creator" property="creator" />
+        <result column="modifier" property="modifier" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `status`,
+        `traffic_status`,
+        `jump_url`,
+        `content`,
+        `create_time`,
+        `modify_time`,
+        `creator`,
+        `modifier`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{status},
+        #{trafficStatus},
+        #{jumpUrl},
+        #{content},
+        #{createTime},
+        #{modifyTime},
+        #{creator},
+        #{modifier}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="status != null">
+            AND `status` = #{status} 
+        </if>
+        <if test="trafficStatus != null">
+            AND `traffic_status` = #{trafficStatus} 
+        </if>
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode.mode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_traffic_warn 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_traffic_warn
+        <set>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="trafficStatus != null"> `traffic_status`=#{trafficStatus},</if>
+            <if test="jumpUrl != null"> `jump_url`=#{jumpUrl},</if>
+            <if test="content != null"> `content`=#{content},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyTrafficWarnMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_traffic_warn
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyTrafficWarnMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_traffic_warn
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_traffic_warn where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyTrafficWarnMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_traffic_warn
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_traffic_warn
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,288 @@
+<style type="text/css">
+    .diy-checkbox {
+        margin: 15px 0px !important;
+    }
+
+    .from-control-diy {
+        display: inline;
+    }
+
+    .disabled-diy {
+        background-color: #EBEBE4;
+    }
+
+    /**矩阵配置的样式***/
+    #wizard div, span, h1, h2, h3, h4, h5, h6, p, pre, a, code, em, img, small, strong, sub, sup, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label {
+        margin: 0;
+    }
+
+    /**border:5px solid #789;**/
+    #wizard {
+        font-size: 12px;
+        min-height: 700px;
+        margin: 20px auto;
+        width: 850px;
+        overflow: hidden;
+        position: relative;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
+
+    #wizard .items {
+        width: 20000px;
+        clear: both;
+        position: absolute;
+    }
+
+    #wizard .right {
+        float: right;
+    }
+
+    /**#wizard #status{height:35px;background:#123;padding-left:25px !important;}**/
+    #wizard #status {
+        height: 35px;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        padding-left: 25px !important;
+    }
+
+    /**color:#fff;**/
+    #status li {
+        float: left;
+        color: #555555;
+        padding: 10px 30px;
+        list-style-type: none;
+    }
+
+    /**#status li.active{background-color:#369;font-weight:normal;}**/
+    #status li.active {
+        background-color: #d9edf7;
+        font-weight: normal;
+    }
+
+    .input {
+        width: 240px;
+        height: 18px;
+        margin: 10px auto;
+        line-height: 20px;
+        border: 1px solid #d3d3d3;
+        padding: 2px
+    }
+
+    .page {
+        padding: 20px 30px;
+        width: 850px;
+        float: left;
+    }
+
+    .page h3 {
+        height: 42px;
+        font-size: 16px;
+        border-bottom: 1px dotted #ccc;
+        margin-bottom: 20px;
+        padding-bottom: 5px
+    }
+
+    .page h3 em {
+        font-size: 12px;
+        font-weight: 500;
+        font-style: normal
+    }
+
+    .page p {
+        line-height: 24px;
+    }
+
+    .page p label {
+        font-size: 14px;
+        display: block;
+    }
+
+    .btn_nav {
+        height: 36px;
+        line-height: 36px;
+        margin: 20px auto;
+    }
+
+    .prev, .next {
+        cursor: pointer;
+    }
+
+    .table tr {
+        height: 50px;
+    }
+
+    .table tr td {
+        font-size: 15px;
+        color: #555555;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .table tr td input {
+        height: 30px;
+    }
+
+    .sm-td tr {
+        height: 35px;
+    }
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/banner/query">banner管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/banner/init">新建banner</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data
+                 icon-edit
+            "></i>banner配置详情</h2>
+            <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                        class="glyphicon glyphicon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content" style="margin-right:400px;">
+            <form class="form-horizontal">
+
+                #if($!{syBanner.id})
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">通用配置id:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control"
+                                   value="$!syBanner.id" disabled>
+                        </div>
+                    </div>
+                #end
+
+                <!--banner描述信息-->
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">
+                        备注信息:</label>
+                    <div class="col-sm-10">
+                        <input type="text" style="width:45%;display: inline;" class="form-control" id="desc"
+                               name="desc" value="$!syBanner.desc" disabled/>
+                    </div>
+                </div>
+
+                <!--banner类型-->
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">banner类型:</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="type" name="type" disabled>
+                            <option value=1 selected>首页banner</option>
+                        </select>
+
+                    </div>
+                </div>
+
+
+                <!--业务类型-->
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">
+                        <font color="red" size="5">*</font>业务类型:</label>
+                    <div class="col-sm-10">
+                        #foreach($e in $bizTypeList)
+                            #if($!syBanner.bizType == $e.code)
+                                <input type="text" style="width:45%;display: inline;" class="form-control" id="bizType"
+                                       name="bizType" value="${e.name}" disabled/>
+                            #end
+                        #end
+
+                    </div>
+                </div>
+
+                #if($!syBanner.bizType==1)
+                    <!--景区模块类型-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            景区模块类型:</label>
+                        <div class="col-sm-10">
+                            #foreach($e in $moduleTypeList)
+                                #if($!syBanner.moduleType == $e.code)
+                                    <input type="text" style="width:45%;display: inline;" class="form-control"
+                                           id="moduleType"
+                                           name="moduleType" value="${e.name}" disabled/>
+                                #end
+                            #end
+
+                        </div>
+                    </div>
+                #end
+                #if($!syBanner.bizType==2)
+                    <!--跳转地址-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>跳转地址url:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:800px;" class="form-control" id="content"
+                                   name="content" value="$!syBanner.content" disabled/>
+
+                        </div>
+                    </div>
+                #elseif($!syBanner.bizType==1)
+                    <!--备注信息-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            备注信息:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="remark"
+                                   name="remark" value="$!syBanner.remark" disabled/>
+                        </div>
+                    </div>
+                #end
+
+                <!--图片地址-->
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">
+                        <font color="red" size="5">*</font>图片:</label>
+                    <div class="col-sm-10">
+                        <div class="arrow" style="top: 50%;"></div>
+                        <div class="popover-content">
+                            <img src="$!{syBanner.picUrl}" height="80" width="250"/>
+                        </div>
+
+                    </div>
+                </div>
+
+
+        </div>
+    </div>
+    <!--/span-->
+
+</div><!--/row-->
+
+
+<script>
+
+    // 页面初始化函数
+    $(function () {
+        var isSuccess = "$code";
+        var msg = "$msg";
+        showMsg(isSuccess, msg);
+    });
+
+    // 提示信息弹出
+    function showMsg(isSuccess, msg) {
+        if (isSuccess == "true") {
+            if (msg != "") {
+                var info = "{\"text\":\"" + msg + "\",\"layout\":\"top\",\"type\":\"success\"}";
+                $('#msgButton').attr("data-noty-options", info).trigger("click");
+            }
+        } else {
+            if (msg != "") {
+                var error = "{\"text\":\"" + msg + "\",\"layout\":\"top\",\"type\":\"error\"}";
+                $('#msgButton').attr("data-noty-options", error).trigger("click");
+            }
+        }
+    }
+</script>

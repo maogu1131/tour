@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyFolk" >
+
+    <resultMap id="SyFolkMap" type="com.songyang.tour.pojo.SyFolk">
+        <result column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="hot" property="hot" />
+        <result column="address" property="address" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="status" property="status" />
+        <result column="phone" property="phone" />
+        <result column="banner_url" property="bannerUrl" />
+        <result column="desc" property="desc" />
+        <result column="pic_url" property="picUrl" />
+        <result column="charge_desc" property="chargeDesc" />
+        <result column="special_desc" property="specialDesc" />
+        <result column="special_pic_url" property="specialPicUrl" />
+        <result column="play_tips" property="playTips" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `title`,
+        `hot`,
+        `address`,
+        `longitude`,
+        `latitude`,
+        `start_time`,
+        `end_time`,
+        `status`,
+        `phone`,
+        `banner_url`,
+        `desc`,
+        `pic_url`,
+        `charge_desc`,
+        `special_desc`,
+        `special_pic_url`,
+        `play_tips`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{title},
+        #{hot},
+        #{address},
+        #{longitude},
+        #{latitude},
+        #{startTime},
+        #{endTime},
+        #{status},
+        #{phone},
+        #{bannerUrl},
+        #{desc},
+        #{picUrl},
+        #{chargeDesc},
+        #{specialDesc},
+        #{specialPicUrl},
+        #{playTips},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="title != null">
+            AND `title` like CONCAT('%',#{title},'%')
+        </if>
+        <if test="hot != null">
+            AND `hot` = #{hot}
+        </if>
+        <!--<if test="startTime != null">-->
+            <!--AND `start_time` = #{startTime} -->
+        <!--</if>-->
+        <!--<if test="endTime != null">-->
+            <!--AND `end_time` = #{endTime} -->
+        <!--</if>-->
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+        <!--<if test="phone != null">-->
+            <!--AND `phone` = #{phone} -->
+        <!--</if>-->
+        <!--<if test="desc != null">-->
+            <!--AND `desc` = #{desc} -->
+        <!--</if>-->
+        <!--<if test="picUrl != null">-->
+            <!--AND `pic_url` = #{picUrl} -->
+        <!--</if>-->
+        <!--<if test="chargeDesc != null">-->
+            <!--AND `charge_desc` = #{chargeDesc} -->
+        <!--</if>-->
+        <!--<if test="specialDesc != null">-->
+            <!--AND `special_desc` = #{specialDesc} -->
+        <!--</if>-->
+        <!--<if test="specialPicUrl != null">-->
+            <!--AND `special_pic_url` = #{specialPicUrl} -->
+        <!--</if>-->
+        <!--<if test="playTips != null">-->
+            <!--AND `play_tips` = #{playTips} -->
+        <!--</if>-->
+        <!--<if test="creator != null">-->
+            <!--AND `creator` = #{creator} -->
+        <!--</if>-->
+        <!--<if test="createTime != null">-->
+            <!--AND `create_time` = #{createTime} -->
+        <!--</if>-->
+        <!--<if test="modifier != null">-->
+            <!--AND `modifier` = #{modifier} -->
+        <!--</if>-->
+        <!--<if test="modifyTime != null">-->
+            <!--AND `modify_time` = #{modifyTime} -->
+        <!--</if>-->
+    </sql>
+
+    <sql id="_region_where">
+        <!-- 大于等于时间 -->
+        <if test="egtTime != null">
+            <![CDATA[
+				AND create_time >= #{egtTime}
+			]]>
+        </if>
+        <!-- 小于时间 -->
+        <if test="ltTime != null">
+            <![CDATA[
+				AND end_time < #{ltTime}
+			]]>
+        </if>
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_folk 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_folk
+        <set>
+            <if test="title != null"> `title`=#{title},</if>
+            <if test="hot != null"> `hot`=#{hot},</if>
+            <if test="address != null"> `address`=#{address},</if>
+            <if test="longitude != null"> `longitude`=#{longitude},</if>
+            <if test="latitude != null"> `latitude`=#{latitude},</if>
+            <if test="startTime != null"> `start_time`=#{startTime},</if>
+            <if test="endTime != null"> `end_time`=#{endTime},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="phone != null"> `phone`=#{phone},</if>
+            <if test="bannerUrl != null"> `banner_url`=#{bannerUrl},</if>
+            <if test="desc != null"> `desc`=#{desc},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="chargeDesc != null"> `charge_desc`=#{chargeDesc},</if>
+            <if test="specialDesc != null"> `special_desc`=#{specialDesc},</if>
+            <if test="specialPicUrl != null"> `special_pic_url`=#{specialPicUrl},</if>
+            <if test="playTips != null"> `play_tips`=#{playTips},</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id} limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyFolkMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_folk
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyFolkMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_folk
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_folk where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyFolkMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_folk
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_folk
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+</mapper>

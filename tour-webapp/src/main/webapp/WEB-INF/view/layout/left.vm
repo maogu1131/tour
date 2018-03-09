@@ -1,0 +1,190 @@
+<!-- left menu starts -->
+<div class="col-sm-2 col-lg-2">
+    <div class="sidebar-nav">
+        <div class="nav-canvas">
+            <div class="nav-sm nav nav-stacked">
+
+            </div>
+            <ul class="nav nav-pills nav-stacked main-menu">
+                <li class="nav-header" style="font-size: 15px"> 菜单</li>
+            ##                <li><a class="ajax-link" href="${ac.contextPath}/"><i
+            ##                        class="glyphicon glyphicon-home"></i><span> 版本记录</span></a>
+            ##                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-warning-sign"></i><span>公告管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/notice/query">公告查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/notice/init">新建公告</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-tasks"></i><span>banner管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/banner/query">banner查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/banner/init">新建banner</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-volume-up"></i><span>交通预警管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/trafficWarn/query">交通预警查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/trafficWarn/init">新建交通预警</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-road"></i><span>古村落管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/village/query">古村落查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/village/init">新建古村落</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-search"></i><span>模块管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/module/query">模块查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/module/init">新建模块</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-film"></i><span>景区模块管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/scenicSpotModule/query">景区模块查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/scenicSpotModule/init">新建景区模块</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-picture"></i><span>景区管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/scenicSpot/query">景区查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/scenicSpot/init">新建景区</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-gift"></i><span>酒店管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/hotel/query">酒店查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/hotel/init">新建酒店</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-bullhorn"></i><span>民俗活动管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/folk/query">民俗活动查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/folk/init">新建民俗活动</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-th-large"></i><span>产品管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/prod/query">产品查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/prod/init">新建产品</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-tasks"></i><span>餐馆管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/restaurant/query">餐馆查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/restaurant/init">新建餐馆</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-glass"></i><span>餐馆-菜管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/restaurant/food/query">餐馆-菜查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/restaurant/food/init">新建餐馆-菜</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-plane"></i><span>定制路线管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/customRoute/query">定制路线查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/customRoute/init">新建定制路线</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon  glyphicon-globe"></i><span>旅游攻略管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/travelStrategy/query">旅游攻略查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/travelStrategy/init">新建旅游攻略</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-user"></i><span>导游管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/guide/query">导游查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/guide/init">新建导游</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-arrow-left"></i><span>公共场所管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/publicPlace/query">公共场所查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/publicPlace/init">新建公共场所</a></li>
+                    </ul>
+                </li>
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-fullscreen"></i><span>公共服务管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/publicService/query">公共服务查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/publicService/init">新建公共服务</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-user"></i><span>管理员操作入口</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/admin/superAdminPassInit">编辑超级管理员</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/admin/addAdminInit">添加普通管理员</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/admin/query">普通管理员列表</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-bullhorn"></i><span>数据中心</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/data/folkResverOrder/query">民俗活动预约</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/data/guideOrder/query">导游预约</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/data/rentCarOrder/query">租车预约</a></li>
+                    </ul>
+                </li>
+               <li class="accordion">
+                    <a href="#"><i class="glyphicon glyphicon-cog"></i><span>参数配置管理</span></a>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/commonConfig/query">参数配置查询</a></li>
+                        <li><a class="ajax-link" href="${ac.contextPath}/manage/commonConfig/init">新建参数配置</a></li>
+                    </ul>
+                </li>
+
+##                <li class="accordion">
+##                    <a href="#"><i class="glyphicon glyphicon-asterisk"></i><span>测试图片管理</span></a>
+##                    <ul class="nav nav-pills nav-stacked">
+####                        <li><a class="ajax-link" href="${ac.contextPath}/img/init">图片管理</a></li>
+##                        <li><a class="ajax-link" href="${ac.contextPath}/img/evl">评价</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--/span-->
+<!-- left menu ends -->

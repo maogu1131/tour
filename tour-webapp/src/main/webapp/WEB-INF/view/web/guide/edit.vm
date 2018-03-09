@@ -1,0 +1,184 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/guide/query">导游管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/guide/init">新建导游</a>
+        </li>
+    </ul>
+</div>
+
+
+#set($picUrlListStr="$!{guide.picUrlListStr}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit"></i> </h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="alert alert-danger" >
+                <strong>导游头像图片上传说明</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br/><br/>
+                <label>&nbsp;&nbsp;1、图片大小只支持64*64，过大无法显示</label><br/><br/>
+            </div>
+
+            <div class="box-content" style="margin-right:400px;">
+				<!--导游信息-->
+				<form id="guide" action="${ac.contextPath}/guide/save" data-toggle="validator" method="post" class="form-horizontal">
+        				#if($!{guide.id})
+                          <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >导游id:</label>
+                            <div class="col-sm-10">
+                              <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                     id="id" name="id" value="$!guide.id" readonly />
+                            </div>
+                          </div>
+        				#end
+
+                        <!--名字-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>名字:</label>
+                            <div class="col-sm-5">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="name" name="name" value="$!guide.name"
+                                       placeholder="名字不能大于32个字符" required data-required-error="名字不能为空"
+                                       data-minlength="2" data-minlength-error="名字不能少于2个字符"
+                                       pattern=".{2,32}" data-pattern-error="名字不能大于32个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    
+                        <!--描述-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >描述:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="desc" name="desc" value="$!guide.desc" placeholder="描述不能大于128个字符"
+                                       pattern=".{2,128}" data-pattern-error="描述不能大于128个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    
+                        <!--预定电话-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>预定电话:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="phone" name="phone" value="$!guide.phone"
+                                       required data-required-error="预定电话不能为空"
+                                       pattern="[0-9]{6,11}" data-pattern-error="请填写有效的号码"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                    
+                        <!--关键字-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>关键词:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                       id="keyWord" name="keyWord" value="$!guide.keyWord" placeholder="多个以|分隔,不能大于256个字符"
+                                       pattern=".{2,256}" data-pattern-error="关键词不能大于256个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                        <!--图片地址-->
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">
+                                <font color="red" size="5">*</font>图片地址<br/><span style="color:red">(大小为64*64)</span>:</label>
+                            <div class="col-sm-10">
+                                <div id="container">
+                                    <a href="javascript:void(0)" class="file">选择文件
+                                        <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                        <input type="hidden" id="picUrl" name="picUrl" value="$!guide.picUrl" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--音频地址-->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">音频地址:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;" class="form-control"
+                                       id="audioUrl" name="audioUrl" value="$!guide.audioUrl"
+                                       placeholder="导览音频地址"  pattern="[a-zA-z]+://[^\s]*" data-pattern-error="请填写有效音频地址"
+                                />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+				</form>
+            </div>
+        </div>
+	</div>
+</div>
+
+
+    <script>
+
+	// 页面初始化
+	$(function(){
+        data =  eval($!picUrlListStr);
+        upload('container',data,'guide');
+    });
+
+    $('#guide').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            layer.msg('亲,请将信息填写完整呀~', {icon: 5,time: 1000});
+        } else {
+            var data = $('#guide').serialize();
+            console.log(data);
+            layer.load(0, {shade: false});
+            $.ajax({
+                type: 'POST',
+                url: basePath + '/manage/guide/save',
+                data: data,
+                success: function (res) {
+                    layer.closeAll("loading");
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon:6,time: 3000});
+                        window.location = basePath + "/manage/guide/query";
+                    } else {
+                        layer.msg(res.msg, {icon: 10,time: 3000});
+                    }
+                },
+                error: function () {
+                    layer.closeAll("loading");
+                    layer.msg("提交失败,请重试", {icon: 5,time: 3000});
+                }
+            });
+
+        }
+        return false;
+    });
+
+	
+    </script>

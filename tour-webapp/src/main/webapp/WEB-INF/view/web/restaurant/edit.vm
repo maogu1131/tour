@@ -1,0 +1,339 @@
+<style type="text/css">
+    .diy-checkbox {
+        margin: 15px 0px !important;
+    }
+
+    .from-control-diy {
+        display: inline;
+    }
+
+    .disabled-diy {
+        background-color: #EBEBE4;
+    }
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/restaurant/query">餐馆管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/restaurant/init">新建餐馆</a>
+        </li>
+    </ul>
+</div>
+
+#set($bannerPicUrlListStr="$!{syRestaurant.bannerPicUrlListStr}")
+#set($picUrlListStr="$!{syRestaurant.picUrlListStr}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit"></i></h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+
+            <div class="box-content" style="margin-right:400px;">
+                <!--公共服务信息-->
+                <form id="restaurant" action="${ac.contextPath}/manage/restaurant/save" data-toggle="validator" method="post"
+                      class="form-horizontal">
+                    <!--id-->
+                    #if($!{syRestaurant.id})
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">餐馆id:</label>
+                            <div class="col-sm-10">
+                                <input type="text" style="width:45%;display: inline;" class="form-control"
+                                       id="id" name="id" value="$!{syRestaurant.id}" readonly />
+                            </div>
+                        </div>
+                    #end
+
+                    <!--中文名字-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            中文名字:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="cnName"
+                                   name="cnName" value="$!syRestaurant.cnName"
+                                   placeholder="不能大于32个字符"
+                                   data-minlength="2" data-minlength-error="中文名称不能少于2个字符" pattern=".{2,32}"
+                                   data-pattern-error="中文名称不能大于32个字符"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--英文名字-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">英文名字:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="enName" name="enName"
+                                   placeholder="不能大于32个字符" value="$!syRestaurant.enName"
+                                   data-minlength="2" data-minlength-error="英文名称不能少于2个字符" pattern=".{2,32}"
+                                   data-pattern-error="英文名称不能大于32个字符"
+                            />
+                        </div>
+                    </div>
+
+
+                    <!--餐馆类型-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            <font color="red" size="5">*</font>餐馆类型:</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" id="type" name="type" onchange="">
+                                #foreach($e in $restaurantTypeList)
+                                    <option value=$e.code #if($!syRestaurant.type == $e.code)
+                                            selected #end>${e.name}</option>
+                                #end
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--标签-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">标签:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="label" name="label"
+                                   value="$!syRestaurant.label" placeholder="标签以 | 分隔,不能大于64个字符"
+                                   pattern=".{1,64}" data-pattern-error="标签不能小于1个字符，不能大于64个字符"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--人均消费-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">人均消费描述:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="perPayDesc" name="perPayDesc"
+                                   value="$!syRestaurant.perPayDesc"
+                                   placeholder="不能大于128个字符"
+                                   data-minlength="2" data-minlength-error="人均消费描述不能少于2个字符" pattern=".{2,128}"
+                                   data-pattern-error="人均消费描述不能大于128个字符"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--地址-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="address" name="address"
+                                   value="$!syRestaurant.address"
+                                   placeholder="不能大于128个字符"
+                                   data-minlength="2" data-minlength-error="地址不能少于2个字符" pattern=".{2,128}"
+                                   data-pattern-error="地址不能大于128个字符"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--经度-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font color="red" size="5">*</font>经度:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="longitude"
+                                   name="longitude" value="$!syRestaurant.longitude"
+                                   placeholder="请填写小数或者整数" required data-required-error="经度不能为空"
+                                   pattern="(-)?\d+(\.\d+)?" data-pattern-error="请填写小数或者整数"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--纬度-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><font color="red" size="5">*</font>纬度:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="latitude"
+                                   name="latitude" value="$!syRestaurant.latitude"
+                                   placeholder="请填写小数或者整数" required data-required-error="纬度不能为空"
+                                   pattern="(-)?\d+(\.\d+)?" data-pattern-error="请填写小数或者整数"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--电话-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">电话:</label>
+                        <div class="col-sm-10">
+                            <input type="text" style="width:45%;display: inline;" class="form-control" id="phone" name="phone"
+                                   value="$!syRestaurant.phone"  placeholder="电话"
+                                   pattern="[0-9]{6,11}" data-pattern-error="请填写有效的号码"
+                            />
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--餐馆简介-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">餐馆简介:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="desc" name="desc"
+                                   value="$!syRestaurant.desc"
+                                   placeholder="不能大于256个字符"
+                                   data-minlength="2" data-minlength-error="餐馆简介不能少于2个字符" pattern=".{2,256}"
+                                   data-pattern-error="餐馆简介不能大于256个字符"/>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <!--滑动banner图片-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            滑动banner图片:</label>
+                        <div class="col-sm-10">
+                            <div id="container">
+                                <a href="javascript:void(0)" class="file">选择文件
+                                    <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                    <input type="hidden" id="bannerPicUrl" name="bannerPicUrl" value="$!syRestaurant.bannerPicUrl" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+##                    <div class="form-group">
+##                        <label class="col-sm-2 control-label">滑动banner图片:</label>
+##                        <div class="col-sm-10">
+##                            <input type="text" style="width:45%;display: inline;" class="form-control" placeholder="滑动banner图片"
+##                                   id="bannerPicUrl" name="bannerPicUrl"  value="$!syRestaurant.bannerPicUrl" readonly />
+##                            <div class='upload_box'>
+##                                <div class='upload_main'>
+##                                    <div class='upload_choose'>
+##                                        <div id='formId2'>
+##                                            <a href="javascript:void(0)" class="file">选择文件
+##                                                <input id='fileImage2' type='file' multiple name='imgFile'
+##                                                       accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                            </a>
+##                                        </div>
+##                                        <span id='fileDragArea2' class='upload_drag_area'>或者将图片拖到此处</span>
+##                                    </div>
+##                                    <ul id='preview2' class='upload_preview'></ul>
+##                                </div>
+##                                <div class='upload_submit'>
+##                                    <input type='submit'  id='submit2' class='upload_submit_btn' value='上传图片' />
+##                                </div>
+##                                <div id="uploadInf2" class="upload_inf"></div>
+##                            </div>
+##                        </div>
+##                    </div>
+
+
+                    <!--图片地址-->
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">
+                            图片地址:</label>
+                        <div class="col-sm-10">
+                            <div id="container1">
+                                <a href="javascript:void(0)" class="file">选择文件
+                                    <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+                                    <input type="hidden" id="picUrl" name="picUrl" value="$!syRestaurant.picUrl" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+##                    <div class="form-group">
+##                        <label class="col-sm-2 control-label">图片地址:</label>
+##                        <div class="col-sm-10">
+##                            <input type="text" style="width:45%;display: inline;" class="form-control" id="picUrl" name="picUrl"
+##                                   placeholder="图片地址" value="$!syRestaurant.picUrl" readonly />
+##                            <div class='upload_box'>
+##                                <div class='upload_main'>
+##                                    <div class='upload_choose'>
+##                                        <div id='formId1'>
+##                                            <a href="javascript:void(0)" class="file">选择文件
+##                                                <input id='fileImage1' type='file' multiple name='imgFile' accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                            </a>
+##                                        </div>
+##                                        <span id='fileDragArea1' class='upload_drag_area'>或者将图片拖到此处</span>
+##                                    </div>
+##                                    <ul id='preview1' class='upload_preview'></ul>
+##                                </div>
+##                                <div class='upload_submit'>
+##                                    <input type='submit' id='submit1' class='upload_submit_btn' value='上传图片' />
+##                                </div>
+##                                <div id="uploadInf1" class="upload_inf"></div>
+##                            </div>
+##                        </div>
+##                    </div>
+
+
+                    <!--开放时间描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">开放时间描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="openTimeDesc" name="openTimeDesc" placeholder="不能大于128个字符"
+                                      pattern=".{2,128}" data-pattern-error="开放时间描述不能大于128个字符">$!syRestaurant.openTimeDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+
+                    <!--交通描述-->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">交通描述:</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="trafficDesc" name="trafficDesc" placeholder="不能大于64个字符"
+                                      pattern=".{2,128}" data-pattern-error="交通描述不能大于64个字符"
+                            >$!syRestaurant.trafficDesc</textarea>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    // 页面初始化
+    $(function () {
+        data =  eval($!bannerPicUrlListStr);
+        data1 =  eval($!picUrlListStr);
+        upload('container',data,'restaurant');
+        upload('container1',data1,'restaurant');
+    });
+
+    $('#restaurant').validator().on('submit', function (e) {
+        if (e.isDefaultPrevented()) {
+            layer.msg('亲,请将信息填写完整呀~', {icon: 5,time: 1000});
+        } else {
+            var data = $('#restaurant').serialize();
+            console.log(data);
+            layer.load(0, {shade: false});
+            $.ajax({
+                type: 'POST',
+                url: basePath + '/manage/restaurant/save',
+                data: data,
+                success: function (res) {
+                    layer.closeAll("loading");
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon:6,time: 4000});
+                        window.location = basePath + "/manage/restaurant/query";
+                    } else {
+                        layer.msg(res.msg, {icon: 10,time: 4000});
+                    }
+                },
+                error: function () {
+                    layer.closeAll("loading");
+                    layer.msg("提交失败,请重试", {icon: 5,time: 4000});
+                }
+            });
+
+        }
+        return false;
+    });
+
+</script>

@@ -1,0 +1,365 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+
+    /**
+     * 控制图片上下收缩
+     */
+     .hidden {
+         display: none;
+     }
+    .tabs-wrap {
+        position: relative;
+    }
+    .arrow_icon,.arrow_icon.up {
+        position: absolute;
+        top: 4px;
+        right: 10px;
+        background: url(${ac.contextPath}/resources/imgupload/images/fold.png) no-repeat;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .arrow_icon.up {
+        background-position: -14px 3px;
+        top: 2px;
+    }
+    /*#container .tabs-panels {*/
+        /*position: relative;*/
+    /*}*/
+    /*#container .editcls {*/
+        /*display: none;*/
+    /*}*/
+    /*#container .mask {*/
+        /*display: block;*/
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*right: 0;*/
+        /*background: #000;*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*opacity: 0.5;*/
+        /*color: #fff;*/
+        /*text-align: right;*/
+        /*padding-right: 20px;*/
+        /*padding-top: 20px;*/
+    /*}*/
+    /*#container .mask span {*/
+        /*cursor: pointer;*/
+    /*}*/
+
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/customRoute/query">定制路线管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/customRoute/init">新建定制路线</a>
+        </li>
+    </ul>
+</div>
+
+
+#set($picUrlListStr="$!{customRoute.picUrlListStr}")
+#set($customRouteDaysStr="$!{customRoute.customRouteDaysStr}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2 id="actTitle"><i class="glyphicon glyphicon-edit"></i> </h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+			
+            <div class="box-content" style="margin-right:400px;">
+				<!--定制路线信息-->
+				<form id="customRoute" data-toggle="validator" method="post" class="form-horizontal">
+
+        				#if($!{customRoute.id})
+                          <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >定制路线id:</label>
+                            <div class="col-sm-10">
+                              <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                     id="id" name="id" value="$!customRoute.id" readonly />
+                            </div>
+                          </div>
+        				#end
+
+                        <!--旅游大类型-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>旅游大类型:</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" id="type" name="type" onchange="">
+                                    <option value=99>无类型</option>
+                                    #foreach($e in $fatherList)
+                                        <option value='$e.code' #if($!customRoute.type == $e.code) selected #end>${e.name}</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--旅游子类型-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>旅游子类型:</label>
+                            <div class="col-sm-5">
+                                <select class="form-control" id="subType" name="subType" onchange="">
+                                    #foreach($e in $subList)
+                                        <option value='$e.code' #if($!customRoute.subType == $e.code) selected #end>${e.name}</option>
+                                    #end
+                                </select>
+                            </div>
+                        </div>
+
+						<!--关键字-->
+						<div class = "form-group">
+							<label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>关键词:</label>
+							<div class="col-sm-10">
+								<input type="text" style="width:45%;display: inline;"  class="form-control"  id="keyWord" name="keyWord"
+                                       value="$!customRoute.keyWord" placeholder="休闲|观光..,多个以'|'分隔,不能大于128个字符"
+                                       required data-required-error="关键字不能为空"
+                                       data-minlength="2" data-minlength-error="关键字不能少于2个字符"
+                                       pattern=".{2,128}" data-pattern-error="中文名称不能大于128个字符" />
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+
+						<!--描述-->
+						<div class = "form-group">
+							<label for="name" class="col-sm-2 control-label" >描述:</label>
+							<div class="col-sm-10">
+								<input type="text" style="width:45%;display: inline;"  class="form-control"  id="desc" name="desc"
+                                       placeholder="描述不能大于64个字符" value="$!customRoute.desc"
+                                       pattern=".{2,64}" data-pattern-error="描述不能大于64个字符"
+                                />
+                                <div class="help-block with-errors"></div>
+
+							</div>
+						</div>
+
+##						<!--图片地址-->
+##                        <div class="form-group">
+##                            <label for="name" class="col-sm-2 control-label">
+##                                <font color="red" size="5">*</font>图片地址:</label>
+##                            <div class="col-sm-10">
+##                                <div id="container3">
+##                                    <a href="javascript:void(0)" class="file">选择文件
+##                                        <input type='file' multiple accept = 'image/gif,image/jpeg,image/jpg,image/png' />
+##                                        <input type="hidden" id="picUrl" name="picUrl" value="$!customRoute.picUrl"  />
+##                                    </a>
+##                                </div>
+##                            </div>
+##                        </div>
+
+
+                        <!--说明-->
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >路线富文本模板:</label>
+##                            <label for="name" class="col-sm-2 control-label" >"游"、"住"之间内容用10个"|"分隔:</label>
+                            <div class="col-sm-10">
+                                <div class="alert alert-info" >
+                                    <label>【游】游松阳</label><br/><br/>
+                                    <label>...游的内容</label><br/><br/>
+                                    <label>||||||||||（"游"、"住"之间内容用10个"|"分隔）</label><br/><br/>
+                                    <label>【住】住民宿</label><br/><br/>
+                                    <label>...住的内容</label><br/><br/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >路线:</label>
+                            <!--必须用此id才能有效-->
+                            <div class="col-sm-10" id="container" ></div>
+                        </div>
+
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="formSave" type="submit" class="btn-primary">提交</button>
+                        </div>
+                    </div>
+				</form>
+
+                <!--路线内容-->
+                <div id="temp" style="display: none;width:580px;">
+                    <div class="content" style="margin-top: 10px;">
+##                        <div class = "form-group">
+##                            <label for="name" class="col-sm-2 control-label" >标题:</label>
+##                            <div class="col-sm-10">
+##                                <input type="text" style="width:45%;display: inline;"  class="form-control"
+##                                       id="title" name="title" value=""
+##                                       placeholder="标题" required data-required-error="标题不能为空"
+##                                       pattern=".{1,64}" data-pattern-error="标题长度在[1,64]之间" />
+##                                <div class="help-block with-errors"></div>
+##                            </div>
+##                        </div>
+
+##                        <div class = "form-group">
+##                            <label for="name" class="col-sm-2 control-label" >类型:</label>
+##                            <div class="col-sm-5">
+##                                <select class="form-control" id="type" name="type">
+##                                    <option value=1>住</option>
+##                                    <option value=2>游</option>
+##                                </select>
+##                            </div>
+##                        </div>
+
+                        <div class = "form-group">
+                            <label for="name" class="col-sm-2 control-label" >内容:</label>
+                            <div class="col-sm-10">
+                                <textarea name="content" style="width:550px;height:300px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+
+    <script>
+
+        var nest;
+
+	// 页面初始化
+	$(function(){
+##	    // 上传图片
+##        var data =  eval($!picUrlListStr);
+##        upload('container3',data,'custom_route');
+
+        // 富文本
+        var customRouteDaysStr =  eval($!customRouteDaysStr);
+        nest = new nestForm({
+            data: customRouteDaysStr,
+            inputId: 'type',
+            sameTabContent: 'temp',
+            container: 'container',
+            uploadUrl: "$!basePath/img/upload?module=custom_route"
+        });
+
+    });
+
+//    // 提交时候  调用下 该方法
+//    $('#j-submit').click(function() {
+//        nest.submitSetEditorValue();
+//    });
+
+
+##    // 富文本
+##    KindEditor.ready(function(K) {
+##        K.create('#editor_id', {
+##            items: [
+##                'source', 'fontname', 'forecolor', 'fontsize', 'hilitecolor', 'bold', 'italic', 'underline' ,'hr',
+##                '|', 'emoticons', 'justifyleft', 'justifycenter', 'justifyright','insertorderedlist','insertunorderedlist','justifyfull', 'multiimage2','link', 'fullscreen', 'iphone'
+##            ],
+##            uploadJson: "${ac.contextPath}/img/save",  // 该配置是上传图片的地址
+##            pasteType: 1,      // 0 禁止黏贴 1 是纯文本黏贴 2 是html黏贴
+##            minHeight: 375
+##        });
+//        $('#temp').hide();
+//    });
+
+    $('#customRoute').validator().on('submit', function (e) {
+
+        if (e.isDefaultPrevented()) {
+            layer.msg('亲,请将信息填写完整呀~', {icon: 5});
+        } else {
+
+//            var urlArr =  $("#picUrl").split("|");
+//            if(urlArr > 1){
+//                layer.msg("路线图片只能有一个", {icon: 5});
+//                return false;
+//            }
+
+            var typeVal =  $("#type option:selected").val();
+            if(typeVal == 99){
+                layer.msg("请选择旅游大类型", {icon: 5,time:1000});
+                return false;
+            }
+
+            // 富文本值转换下
+            nest.submitSetEditorValue();
+
+            var data = $('#customRoute').serialize();
+            layer.load(0, {shade: false});
+            $.ajax({
+                type: 'POST',
+                url: basePath + '/manage/customRoute/save',
+                data: data,
+
+//                type: 'POST',
+//                url: basePath + '/manage/guide/save',
+//                data: data,
+
+                success: function (res) {
+                    layer.closeAll("loading");
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon:6,time:3000},function () {
+                            window.location = basePath + "/manage/customRoute/query";
+                        });
+                    } else {
+                        layer.msg(res.msg, {icon: 10,time:3000});
+                    }
+                },
+                error: function () {
+                    layer.closeAll("loading");
+                    layer.msg("提交失败,请重试", {icon: 5,time:3000});
+                }
+            });
+
+        }
+        return false;
+    });
+
+
+
+##    $("#type").change(function(e){
+##        var value = e.target.value - 0;
+##        if (value > 0 && value != 99) {
+##            var $panel = new AddTabs({
+##                value: value,
+##                sameTabContent: 'temp',
+##                container: '#containerId',
+##                closedItemCallBack: function(obj){
+##                    var len = obj.len;
+##                    var $this = obj.$this;
+##                    if (len === 0) {
+##                        $("#type").find("option[value=99]").attr("selected",true);
+##                    } else {
+##                        $("#type").find("option[value='"+len+"']").attr("selected","selected");
+##                    }
+####                        $this.setValue(len)
+##                }
+##            });
+##        }
+##    });
+
+
+//    $("#aa").click(function(){
+//        KindEditor.html('#editor_id');
+//        // 同步数据后可以直接取得textarea的value
+//        KindEditor.sync('#editor_id');
+//        var html = document.getElementById('editor_id').value;
+//        console.log(html);
+//        alert(html);
+//    });
+
+
+
+
+
+    </script>

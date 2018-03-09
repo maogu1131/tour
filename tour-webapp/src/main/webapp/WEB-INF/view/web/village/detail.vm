@@ -1,0 +1,294 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/village/query">古村落管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/village/init">新建古村落</a>
+        </li>
+    </ul>
+</div>
+
+#set($code="$!{code}")
+#set($msg="$!{msg}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i>古村落详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   #if($!{village.id})
+                       <div class = "form-group">
+                           <label for="name" class="col-sm-2 control-label" >古村落id:</label>
+                           <div class="col-sm-10">
+                               <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!village.id" disabled>
+                           </div>
+                       </div>
+                   #end
+
+                   <!--中文名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" ><font color="red" size="5">*</font>中文名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="cnName" name="cnName" value="$!village.cnName" disabled />
+                       </div>
+                   </div>
+
+                   <!--英文名字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >英文名字:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="enName" name="enName" value="$!village.enName" disabled>
+                       </div>
+                   </div>
+
+                   <!--短称号-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >称号:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="shortName" name="shortName" value="$!village.shortName" disabled>
+                       </div>
+                   </div>
+
+
+                   <!--热度-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >是否热度:</label>
+                       <div class="col-sm-3">
+                           <select class="form-control" id="hot" name="hot" disabled>
+                               <option value='1' #if($!village.hot == 1) selected #end>不热</option>
+                               <option value='2' #if($!village.hot == 2) selected #end>热</option>
+                           </select>
+                       </div>
+                   </div>
+
+##                   <!--古村落类型-->
+##                   <div class = "form-group">
+##                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>类型:</label>
+##                       <div class="col-sm-5">
+##                           <select class="form-control" id="type" name="type"  disabled>
+##                                   <option value='$e.code' #if($!village.type == $e.code) selected #end>${e.name}</option>
+##                               #foreach($e in $villageTypeList)
+##                                   <option value='$e.code' #if($!village.type == $e.code) selected #end>${e.name}</option>
+##                               #end
+##                           </select>
+##                       </div>
+##                   </div>
+
+                   <!--村落面积-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >村落面积:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="area" name="area" value="$!village.area" disabled />
+                       </div>
+                   </div>
+
+                   <!--行政划区-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >行政划区（归属地）:</label>
+                       <div class="col-sm-10">
+                           <textarea class="form-control"  id="attribution" name="attribution" disabled>$!village.attribution</textarea>
+                       </div>
+                   </div>
+
+                   <!--地址-->
+                   <div class="form-group">
+                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>地址:</label>
+                       <div class="col-sm-10">
+                           <input type="text" class="form-control" id="attribution" name="address" value="$!village.address" disabled
+                           />
+                       </div>
+                   </div>
+
+                   <!--经度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>经度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="longitude" name="longitude" value="$!village.longitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+                   <!--纬度-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" ><font color="red" size="5">*</font>纬度:</label>
+                       <div class="col-sm-10">
+                           <!--TODO 补上正则 浮点-->
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="latitude" name="latitude" value="$!village.latitude"
+                                  disabled />
+                       </div>
+                   </div>
+
+##                   <!--海拔-->
+##                   <div class="form-group">
+##                       <label class="col-sm-2 control-label" >海拔:</label>
+##                       <div class="col-sm-10">
+##                           <!--TODO 补上正则 浮点-->
+##                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="altitude" name="altitude"
+##                                   value="$!village.altitude" disabled />
+##                       </div>
+##                   </div>
+
+                   <!--人口描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >海人口描述:</label>
+                       <div class="col-sm-10">
+                           <textarea class="form-control"  id="populationDesc" name="populationDesc" disabled >$!village.populationDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--历史文化描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >历史文化描述:</label>
+                       <div class="col-sm-10">
+                           <textarea  class="form-control"  id="historyDesc" name="historyDesc" disabled>$!village.historyDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--历史文化图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >历史文化图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach( $v in $historyPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--古村落简介-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >古村落简介:</label>
+                       <div class="col-sm-10">
+                           <textarea class="form-control"  id="villageDesc" name="villageDesc" disabled>$!village.villageDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--古村落图片地址图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >古村落图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach( $v in $picUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--服务设施-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >服务设施:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="services" name="services" value="$!village.services" disabled />
+                       </div>
+                   </div>
+
+                   <!--特色描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >特色描述:</label>
+                       <div class="col-sm-10">
+                           <textarea  class="form-control"  id="specialDesc" name="specialDesc" disabled>$!village.specialDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--特色文化图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >特色文化图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach($v in $specialPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--民俗活动描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >民俗活动描述:</label>
+                       <div class="col-sm-10">
+                           <textarea class="form-control"  id="folkActDesc" name="folkActDesc" disabled>$!village.folkActDesc</textarea>
+                       </div>
+                   </div>
+
+                   <!--民俗活动图片地址-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >民俗活动图片地址:</label>
+                       <div class="col-sm-10">
+                           #foreach( $v in $folkActPicUrlList)
+                               <div class="arrow" style="top: 50%;"></div>
+                               <div class="popover-content">
+                                   <img src="$!{v}" height="80" width="250"/>
+                               </div>
+                           #end
+                       </div>
+                   </div>
+
+                   <!--交通描述-->
+                   <div class="form-group">
+                       <label class="col-sm-2 control-label" >交通描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"  id="trafficDesc" name="trafficDesc" value="$!village.trafficDesc" disabled />
+                       </div>
+                   </div>
+			 </form>
+            </div>
+			
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+	var isSuccess = "$code";
+	var msg = "$msg";
+	showMsg(isSuccess,msg);
+});
+
+// 提示信息弹出
+function showMsg(isSuccess,msg){
+	if(isSuccess == "true"){
+		if(msg != ""){
+			var info="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"success\"}";
+			$('#msgButton').attr("data-noty-options",info).trigger("click");
+		}
+	}else{
+		if(msg != ""){
+			var error="{\"text\":\""+msg+"\",\"layout\":\"top\",\"type\":\"error\"}";
+			$('#msgButton').attr("data-noty-options",error).trigger("click");
+		}
+	}
+}
+</script>

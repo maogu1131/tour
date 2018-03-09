@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.songyang.tour.pojo.SyScenicSpot" >
+
+    <resultMap id="SyScenicSpotMap" type="com.songyang.tour.pojo.SyScenicSpot">
+        <result column="id" property="id" />
+        <result column="cn_name" property="cnName" />
+        <result column="en_name" property="enName" />
+        <result column="status" property="status" />
+        <result column="short_name" property="shortName" />
+        <result column="hot" property="hot" />
+        <result column="price" property="price"/>
+        <result column="type" property="type" />
+        <result column="other_desc" property="otherDesc" />
+        <result column="address" property="address" />
+        <result column="level" property="level" />
+        <result column="longitude" property="longitude" />
+        <result column="latitude" property="latitude" />
+        <result column="altitude" property="altitude" />
+        <result column="phone" property="phone" />
+        <result column="wechat_pic_url" property="wechatPicUrl" />
+        <result column="wechat_public_signal" property="wechatPublicSignal" />
+        <result column="desc" property="desc" />
+        <result column="pic_url" property="picUrl" />
+        <result column="video_url" property="videoUrl" />
+        <result column="open_time_desc" property="openTimeDesc" />
+        <result column="special_desc" property="specialDesc" />
+        <result column="special_pic_url" property="specialPicUrl" />
+        <result column="route_desc" property="routeDesc" />
+        <result column="ticket_desc" property="ticketDesc" />
+        <result column="tour_audio_url" property="tourAudioUrl" />
+        <result column="play_tips" property="playTips" />
+        <result column="traffic_desc" property="trafficDesc" />
+        <result column="ticket_total_num" property="ticketTotalNum" />
+        <result column="ticket_send_num" property="ticketSendNum" />
+        <result column="ticket_remain_num" property="ticketRemainNum" />
+        <result column="creator" property="creator" />
+        <result column="create_time" property="createTime" />
+        <result column="modifier" property="modifier" />
+        <result column="modify_time" property="modifyTime" />
+    </resultMap>
+
+    <sql id="_field_list">
+        `id`,
+        `cn_name`,
+        `en_name`,
+        `status`,
+        `short_name`,
+        `hot`,
+        `price`,
+        `type`,
+        `other_desc`,
+        `address`,
+        `level`,
+        `longitude`,
+        `latitude`,
+        `altitude`,
+        `phone`,
+        `wechat_pic_url`,
+        `wechat_public_signal`,
+        `desc`,
+        `pic_url`,
+        `video_url`,
+        `open_time_desc`,
+        `special_desc`,
+        `special_pic_url`,
+        `route_desc`,
+        `ticket_desc`,
+        `tour_audio_url`,
+        `play_tips`,
+        `traffic_desc`,
+        `ticket_total_num`,
+        `ticket_send_num`,
+        `ticket_remain_num`,
+        `creator`,
+        `create_time`,
+        `modifier`,
+        `modify_time`
+    </sql>
+
+    <sql id="_value_list">
+        #{id},
+        #{cnName},
+        #{enName},
+        #{status},
+        #{shortName},
+        #{hot},
+        #{price},
+        #{type},
+        #{otherDesc},
+        #{address},
+        #{level},
+        #{longitude},
+        #{latitude},
+        #{altitude},
+        #{phone},
+        #{wechatPicUrl},
+        #{wechatPublicSignal},
+        #{desc},
+        #{picUrl},
+        #{videoUrl},
+        #{openTimeDesc},
+        #{specialDesc},
+        #{specialPicUrl},
+        #{routeDesc},
+        #{ticketDesc},
+        #{tourAudioUrl},
+        #{playTips},
+        #{trafficDesc},
+        #{ticketTotalNum},
+        #{ticketSendNum},
+        #{ticketRemainNum},
+        #{creator},
+        #{createTime},
+        #{modifier},
+        #{modifyTime}
+    </sql>
+
+    <sql id="_common_where">
+        <if test="id != null">
+            AND `id` = #{id} 
+        </if>
+        <if test="cnName != null">
+            AND `cn_name` like CONCAT('%',#{cnName},'%')
+        </if>
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+        <if test="type != null">
+            AND `type` = #{type} 
+        </if>
+
+        <if test="hot != null">
+            AND `hot` = #{hot}
+        </if>
+
+
+        <if test="address != null">
+            AND `address` like CONCAT('%',#{address},'%')
+        </if>
+
+    </sql>
+
+    <sql id="_region_where">
+    </sql>
+
+    <sql id="_common_sorts">
+        <if test="sorts != null">
+            ORDER BY
+            <foreach collection="sorts" item="item" separator=",">
+                ${item.columnName} ${item.sortMode}
+            </foreach>
+        </if>
+    </sql>
+
+	<!--auto generated Code by AutoGenerate -->
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         INSERT INTO sy_scenic_spot 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_field_list"/>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="_value_list"/>
+        </trim>
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <update id="updateById">
+        UPDATE sy_scenic_spot
+        <set>
+            <if test="cnName != null"> `cn_name`=#{cnName},</if>
+            <if test="enName != null"> `en_name`=#{enName},</if>
+            <if test="status != null"> `status`=#{status},</if>
+            <if test="shortName != null"> `short_name`=#{shortName},</if>
+            <if test="hot != null"> `hot`=#{hot},</if>
+            <if test="price != null"> `price`=#{price},</if>
+            <if test="type != null"> `type`=#{type},</if>
+            <if test="otherDesc != null"> `other_desc`=#{otherDesc},</if>
+            <if test="address != null"> `address`=#{address},</if>
+            <if test="level != null"> `level`=#{level},</if>
+            <if test="longitude != null"> `longitude`=#{longitude},</if>
+            <if test="latitude != null"> `latitude`=#{latitude},</if>
+            <if test="altitude != null"> `altitude`=#{altitude},</if>
+            <if test="phone != null"> `phone`=#{phone},</if>
+            <if test="wechatPicUrl != null"> `wechat_pic_url`=#{wechatPicUrl},</if>
+            <if test="wechatPublicSignal != null"> `wechat_public_signal`=#{wechatPublicSignal},</if>
+            <if test="desc != null"> `desc`=#{desc},</if>
+            <if test="picUrl != null"> `pic_url`=#{picUrl},</if>
+            <if test="videoUrl != null"> `video_url`=#{videoUrl},</if>
+            <if test="openTimeDesc != null"> `open_time_desc`=#{openTimeDesc},</if>
+            <if test="specialDesc != null"> `special_desc`=#{specialDesc},</if>
+            <if test="specialPicUrl != null"> `special_pic_url`=#{specialPicUrl},</if>
+            <if test="routeDesc != null"> `route_desc`=#{routeDesc},</if>
+            <if test="ticketDesc != null"> `ticket_desc`=#{ticketDesc},</if>
+            <if test="tourAudioUrl != null"> `tour_audio_url`=#{tourAudioUrl},</if>
+            <if test="playTips != null"> `play_tips`=#{playTips},</if>
+            <if test="trafficDesc != null"> `traffic_desc`=#{trafficDesc},</if>
+            <if test="ticketTotalNum != null"> `ticket_total_num`=#{ticketTotalNum},</if>
+            <if test="ticketTotalNum != null"> `ticket_remain_num`=#{ticketTotalNum} - ticket_send_num,</if>
+            <if test="creator != null"> `creator`=#{creator},</if>
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=#{modifyTime}
+        </set>
+        WHERE `id` = #{id}
+        <if test="ticketTotalNum != null">
+            and #{ticketTotalNum} > `ticket_send_num`
+            and #{ticketTotalNum} >= 1
+        </if>
+        limit 1
+    </update>
+
+    <select id="selectById" resultMap="SyScenicSpotMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_scenic_spot
+            WHERE `id` = #{id}
+    </select>
+
+    <select id="selectByIdForUpdate" resultMap="SyScenicSpotMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM sy_scenic_spot
+            WHERE `id` = #{id} limit 1 for update 
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM sy_scenic_spot where `id` = #{id} limit 1
+    </delete>
+
+    <select id="queryListByParam" parameterType="map" resultMap="SyScenicSpotMap">
+        SELECT
+            <include refid="_field_list"/>
+        FROM
+            sy_scenic_spot
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+        <include refid="_common_sorts"/>
+        <if test="offset != null and rows != null">
+            limit #{offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="queryCountByParam" parameterType="map" resultType="java.lang.Long" >
+        SELECT
+            count(1)
+        FROM
+            sy_scenic_spot
+        <where>
+            1 = 1 
+            <include refid="_common_where"/>
+            <include refid="_region_where"/>
+        </where>
+    </select>
+
+
+    <update id="deductByMap" parameterType="map">
+        UPDATE sy_scenic_spot
+        <set>
+            ticket_remain_num = ticket_remain_num - #{num},
+            ticket_send_num = ticket_send_num + #{num},
+            <if test="modifier != null"> `modifier`=#{modifier},</if>
+            `modify_time`=now()
+        </set>
+        WHERE id = #{id}
+        and  ticket_remain_num >= #{num} limit 1
+    </update>
+
+    <update id="plusByMap" parameterType="map" >
+        UPDATE
+        sy_scenic_spot
+        SET
+        ticket_remain_num = ticket_remain_num + #{num},
+        ticket_send_num = ticket_send_num - #{num},
+        <if test="modifier != null"> `modifier`=#{modifier},</if>
+        modify_time = now()
+        WHERE id = #{id} limit 1
+    </update>
+
+</mapper>

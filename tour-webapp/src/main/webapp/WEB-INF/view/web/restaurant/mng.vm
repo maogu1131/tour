@@ -1,0 +1,253 @@
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/restaurant/query">餐馆管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/restaurant/init">新建餐馆</a>
+        </li>
+    </ul>
+</div>
+
+<div class="row">
+   <div class="box col-md-12">
+       <div class="box-inner">
+           <div class="box-header well" data-original-title="">
+               <h2><i class="glyphicon glyphicon-edit"></i>餐馆查询</h2>
+               <div class="box-icon">                  
+                   <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                           class="glyphicon glyphicon-chevron-up"></i></a>
+               </div>
+           </div>
+           
+           <div class="box-content">
+               <form class="form-inline" id="searchForm" action="${ac.contextPath}/manage/restaurant/query" method="post" data-toggle="validator">
+                   <table class="table">
+                       <tbody>
+                           <tr>
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">餐馆ID</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="id" name="id" value="$!syRestaurant.id" />
+                                       </div>
+                                   </div>
+                               </td>
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">餐馆名称</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="cnName" name="cnName" value="$!syRestaurant.cnName" />
+                                       </div>
+                                   </div>
+                               </td>
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">状态</label>
+                                       <div class="form-left-15" >
+                                           <select class="form-control" id="status" name="status" >
+                                               <option value="">全部</option>
+                                                   <option value=1 #if($!syRestaurant.status == 1) selected #end>有效</option>
+                                                   <option value=-1 #if($!syRestaurant.status == -1) selected #end>删除</option>
+                                           </select>
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                           <tr>
+
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">地址</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="address" name="address" value="$!syRestaurant.address" />
+                                       </div>
+                                   </div>
+                               </td>
+
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">电话</label>
+                                       <div class="form-left-15" >
+                                           <input type="text" class="form-control" id="phone" name="phone" value="$!syRestaurant.phone" />
+                                       </div>
+                                   </div>
+                               </td>
+
+                               <td>
+                                   <div class="form-group has-success">
+                                       <label class="control-label fix_width">餐馆类型</label>
+                                       <div class="form-left-15" >
+                                           <select class="form-control" id="type" name="type" >
+                                               <option value="">全部</option>
+                                               #foreach($e in $restaurantTypeList)
+                                                   <option value='$e.code' #if($!syRestaurant.type == $e.code) selected #end>${e.name}</option>
+                                               #end
+                                           </select>
+                                           <input type="text" class="form-control" id="type" name="type" value="$!syRestaurant.type" />
+                                       </div>
+                                   </div>
+                               </td>
+                           </tr>
+                           <tr>
+
+                               <td>
+                                   <div class="form-group" style="float:left">
+                                       <button type="submit" class="btn btn-primary"> 查 询 </button>
+                                   </div>
+                               </td>
+                           </tr>
+                       </tbody>
+                   </table>
+                   
+                   <input type="hidden" id="pageNo" name="pageNo" value="$!{query.pageNo}"/>
+				   <input type="hidden" id="pageCount" name="pageCount" value="$!{query.pageCount}"/>
+               </form>
+           </div>
+       </div>
+   </div>
+   <!--/span-->
+</div><!--/row-->
+
+<div class="row">
+   <div class="box col-md-12">
+       <div class="box-inner">
+           <div class="box-header well" data-original-title="">
+               <h2><i class="glyphicon glyphicon-edit"></i> 餐馆列表</h2>
+               <div class="box-icon">
+                 <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                           class="glyphicon glyphicon-chevron-up"></i></a>
+               </div>
+           </div>
+           <div class="box-content">
+               <!--  datatable -->
+            <table class="table table-striped table-bordered bootstrap-datatable responsive">
+                <thead>
+                <tr>
+                    <th>餐馆id</th>
+                    <th>中文名字</th>
+                    <th>英文名字</th>
+                    <th>状态</th>
+                    <th>餐馆类型</th>
+                    <th>滑动banner图片</th>
+                    <th>餐馆图片</th>
+                    <th>电话</th>
+                    <th>地址</th>
+                    <th>创建时间</th>
+                    <th>修改时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                #foreach($v in $list)
+                <tr>
+                    <td>$!{v.id}</td>
+                    <td>$!{v.cnName}</td>
+                    <td>$!{v.enName}</td>
+                    <td> #if($!{v.status} == 1) 有效 #else 删除 #end </td>
+                    <td>
+                        #foreach($e in $restaurantTypeList)
+                            #if($!v.type == $e.code) <option value='$e.code'  selected >${e.name}</option> #end
+                        #end
+                    </td>
+
+                    <td class="imgbox">
+                        <a  href="#" id="$pic" class="J_msg"
+                            data-toggle="popover">预览图片</a>
+                        <div class="min_content popover right" id="pic$pic">
+                            <div class="arrow" style="top: 50%;"></div>
+                            <div class="popover-content">
+                                #foreach($pic in $v.bannerPicUrlList)
+                                    <img src="$!{pic}" height="80" width="250"/>
+                                #end
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="imgbox">
+                        <a href="#" id="$pic" class="J_msg"
+                           data-toggle="popover">预览图片</a>
+                        <div class="min_content popover right" id="pic$pic">
+                            <div class="arrow" style="top: 50%;"></div>
+                            <div class="popover-content">
+                                #foreach($pic in $v.picUrlList)
+                                    <img src="$!{pic}" height="80" width="250"/>
+                                #end
+                            </div>
+                        </div>
+                    </td>
+
+					<td>$!{v.phone}</td>
+					<td>$!{v.address}</td>
+                    <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{v.createTime})</td>
+                    <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!{v.modifyTime})</td>
+                    <td class="center">
+                        <a class="btn btn-success" href="#" onclick="javascript:window.open('${ac.contextPath}/manage/restaurant/detail?id=${v.id}');">
+                            <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                            查看
+                        </a>
+                        <a class="btn btn-primary" href="#"
+								onclick="javascript:window.open('${ac.contextPath}/manage/restaurant/edit?id=${v.id}');"
+                            <i class="glyphicon glyphicon-edit icon-white"></i>
+                            编辑
+                        </a>
+                        #if($!{v.status} == 1)
+                        <a class="btn btn-danger" href="#" onclick="update(${v.id},-1);">
+                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                            删除
+                        </a>
+                        #else
+                        <a class="btn btn-info" href="#" onclick="update(${v.id},1);">
+                            <i class="glyphicon glyphicon-trash icon-white"></i>
+                            恢复
+                        </a>
+                        #end
+                    </td>
+                </tr>
+                #end
+                </tbody>
+            </table>
+			<!-- 引用common下面的分页 -->
+			#parse("/common/page.vm")
+
+        </div>
+    </div>
+</div>
+<!--/span-->
+</div><!--/row-->
+
+<script>
+
+// 删除景区
+function update(id,status){
+	var p = {
+		id : id,
+        status:status
+	};
+
+    $.ajax({
+		type: "POST",
+		url: "${ac.contextPath}/manage/restaurant/update",
+		data: p,
+		dataType: "JSON",
+        success: function(res){
+            if(res.code == 1){
+                layer.msg(res.msg, {icon:6},function () {
+                    $("#searchForm").submit();
+                });
+            }else{
+                layer.msg(res.msg, {icon: 10});
+            }
+        },
+        error:function(){
+            layer.msg("提交失败,请重试", {icon: 5});
+            //setTimeout("window.location.reload()", 2000);//2秒后刷新
+        }
+	});
+}
+
+// 页面初始化函数
+$(function(){
+});
+</script>
+

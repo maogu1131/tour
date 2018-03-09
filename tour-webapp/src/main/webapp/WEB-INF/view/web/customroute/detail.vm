@@ -1,0 +1,182 @@
+
+<style type="text/css">
+	.diy-checkbox{
+        margin: 15px 0px !important;
+	}
+	.from-control-diy{
+		display:inline;
+	}
+	.disabled-diy{
+		background-color:#EBEBE4;
+	}
+</style>
+<div>
+    <ul class="breadcrumb">
+        <li>
+            <a href="${ac.contextPath}/manage/customRoute/query">定制路线管理</a>
+        </li>
+        <li>
+            <a href="${ac.contextPath}/manage/customRoute/init">新建定制路线</a>
+        </li>
+    </ul>
+</div>
+
+#set($customRouteDaysStr="$!{customRoute.customRouteDaysStr}")
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-edit"></i>定制路线详情</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content" style="margin-right:400px;">
+               <form class="form-horizontal">
+
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >定制路线id:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control" value="$!customRoute.id" disabled>
+                       </div>
+                   </div>
+
+##                   <!--模块类型-->
+##                   <div class = "form-group">
+##                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>模块类型:</label>
+##                       <div class="col-sm-5">
+##                           <select class="form-control" id="moduleType" name="moduleType" disabled >
+##                               <option value=1 #if($!customRoute.moduleType == 1) selected #end>私人定制</option>
+##                               <option value=2 #if($!customRoute.moduleType == 2) selected #end>智能旅游</option>
+##                           </select>
+##                       </div>
+##                   </div>
+
+                   <!--旅游大类型-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label">旅游大类型:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control" id="type" name="type" onchange="" disabled>
+                               #foreach($e in $fatherList)
+                                   <option value='$e.code' #if($!customRoute.type == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--旅游子类型-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label"><font color="red" size="5">*</font>旅游子类型:</label>
+                       <div class="col-sm-5">
+                           <select class="form-control" id="subType" name="subType" onchange="" disabled>
+                               #foreach($e in $subList)
+                                   <option value='$e.code' #if($!customRoute.subType == $e.code) selected #end>${e.name}</option>
+                               #end
+                           </select>
+                       </div>
+                   </div>
+
+                   <!--关键字-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >关键词:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                  value="$!customRoute.keyWord" disabled />
+                       </div>
+                   </div>
+
+                   <!--描述-->
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >描述:</label>
+                       <div class="col-sm-10">
+                           <input type="text" style="width:45%;display: inline;"  class="form-control"
+                                   value="$!customRoute.desc" disabled />
+                       </div>
+                   </div>
+
+##                   <!--图片地址-->
+##                   <div class="form-group">
+##                       <label  class="col-sm-2 control-label" ><font color="red" size="5">*</font>图片地址:</label>
+##                       <div class="col-sm-10">
+##                           #foreach($v in $picUrlList)
+##                               <div class="arrow" style="top: 50%;"></div>
+##                               <div class="popover-content">
+##                                   <img src="$!{v}" height="80" width="250"/>
+##                               </div>
+##                           #end
+##                       </div>
+##                   </div>
+
+
+                   <div class = "form-group">
+                       <label for="name" class="col-sm-2 control-label" >路线:</label>
+                       <div class="col-sm-10" id="container" ></div>
+                   </div>
+			   </form>
+            </div>
+
+
+
+            <!--路线内容-->
+            <div id="temp" style="display: none;width:580px;">
+                <div class="content" style="margin-top: 10px;">
+##                    <div class = "form-group">
+##                        <label for="name" class="col-sm-2 control-label" >标题:</label>
+##                        <div class="col-sm-10">
+##                            <input type="text" style="width:45%;display: inline;"  class="form-control"
+##                                   id="title" name="title" value=""
+##                                   placeholder="标题" required data-required-error="标题不能为空"
+##                                   pattern=".{1,64}" data-pattern-error="标题长度在[1,64]之间" />
+##                            <div class="help-block with-errors"></div>
+##                        </div>
+##                    </div>
+
+##                    <div class = "form-group">
+##                        <label for="name" class="col-sm-2 control-label" >类型:</label>
+##                        <div class="col-sm-5">
+##                            <select class="form-control" id="type" name="type">
+##                                <option value=1>住</option>
+##                                <option value=2>游</option>
+##                            </select>
+##                        </div>
+##                    </div>
+
+                    <div class = "form-group">
+                        <label for="name" class="col-sm-2 control-label" >内容:</label>
+                        <div class="col-sm-10">
+                            <textarea name="content" style="width:550px;height:300px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+      </div>
+      <!--/span-->
+	  
+</div><!--/row-->
+
+
+<script>
+	
+// 页面初始化函数
+$(function(){
+
+    // 富文本
+    var customRouteDaysStr =  eval($!customRouteDaysStr);
+    console.log(customRouteDaysStr);
+    nest = new nestForm({
+        data: customRouteDaysStr,
+        inputId: 'type',
+        sameTabContent: 'temp',
+        container: 'container',
+        uploadUrl: "$!basePath/img/upload?module=module"
+    });
+
+});
+
+
+</script>

@@ -1,0 +1,55 @@
+<!-- topbar starts -->
+<div class="navbar navbar-default" role="navigation">
+
+    <div class="navbar-inner">
+        <button type="button" class="navbar-toggle pull-left animated flip">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+       <img alt="Charisma Logo"style=" height: 36px;width: 36px;margin-left: 18px;margin-top: 9px;" src="${ac.contextPath}/resources/charisma-master/img/logo.png"/>
+        <div style="color:white;margin-left:67px;margin-top: -32px;font-size:180%;font-family: 'Shojumaru', cursive, Arial, serif;"><b>游松阳管理系统</b></div>
+
+        <!-- user dropdown starts -->
+        <div class="btn-group pull-right" style="margin-top: -35px">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <!--<li><a href="#">ii</a></li>
+                <li class="divider"></li>-->
+                <li><a href="${ac.contextPath}/admin/login/logout">退出</a></li>
+            </ul>
+        </div>
+        <!-- user dropdown ends-->
+
+##         theme selector starts
+##        <div class="btn-group pull-right theme-container animated tada">
+##            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+##                <i class="glyphicon glyphicon-tint"></i><span
+##                    class="hidden-sm hidden-xs"> 切换主题/皮肤</span>
+##                <span class="caret"></span>
+##            </button>
+##            <ul class="dropdown-menu" id="themes">
+##                <li><a data-value="classic" href="#"><i class="whitespace"></i> 经典/Classic</a></li>
+##                <li><a data-value="cerulean" href="#"><i class="whitespace"></i> 天蓝/Cerulean</a></li>
+##                <li><a data-value="cyborg" href="#"><i class="whitespace"></i> 半机械/Cyborg</a></li>
+##                <li><a data-value="simplex" href="#"><i class="whitespace"></i> 极简/Simplex</a></li>
+##                <li><a data-value="darkly" href="#"><i class="whitespace"></i> 纯黑/Darkly</a></li>
+##                <li><a data-value="lumen" href="#"><i class="whitespace"></i> 流明/Lumen</a></li>
+##                <li><a data-value="slate" href="#"><i class="whitespace"></i> 石板/Slate</a></li>
+##                <li><a data-value="spacelab" href="#"><i class="whitespace"></i> 空间实验室/Spacelab</a></li>
+##                <li><a data-value="united" href="#"><i class="whitespace"></i> 联合/United</a></li>
+##            </ul>
+##        </div>
+        <!-- theme selector ends
+
+        <ul class="collapse navbar-collapse nav navbar-nav top-menu">
+            <li><a href="#"><i class="glyphicon glyphicon-fire"></i> 松阳游管理系统</a></li>
+        </ul>-->
+
+    </div>
+</div>
+<!-- topbar ends -->
