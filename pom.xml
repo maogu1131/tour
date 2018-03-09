@@ -56,7 +56,7 @@
         <javaee-api.version>7.0</javaee-api.version>
         <jstl.version>1.2</jstl.version>
         <jsp-api.version>2.0</jsp-api.version>
-        <servlet-api.version>4.0.0</servlet-api.version>
+        <servlet-api.version>2.5</servlet-api.version>
         <velocity.version>1.7</velocity.version>
         <velocity-tools.version>2.0</velocity-tools.version>
 
