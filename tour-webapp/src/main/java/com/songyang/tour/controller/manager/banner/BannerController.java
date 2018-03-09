@@ -14,20 +14,29 @@ import com.songyang.tour.pojo.*;
 import com.songyang.tour.query.*;
 import com.songyang.tour.service.*;
 import com.songyang.tour.utils.CommonUtil;
+import com.songyang.tour.utils.export.ExcelFileGenerator;
+import com.songyang.tour.utils.export.ExcelSheetSO;
+import com.songyang.tour.utils.export.ExcelSheetSOBuilder;
+import com.songyang.tour.utils.export.WorkBookSO;
 import com.songyang.tour.vo.CodeName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -413,6 +422,68 @@ public class BannerController {
         return VmConstans.BANNER_MNG;
     }
 
+    @RequestMapping(value = "/exportBannerList")
+    public void exportBannerList(HttpServletRequest request, HttpServletResponse response){
+
+        StopWatch sw = new StopWatch();
+        sw.start();
+
+
+        String titleName = "banner标题";
+        int num = 0, str = 1;
+        int sheetNum = 1;
+
+        int offset = 0, rows = 2000;
+
+        SyBannerQuery query = new SyBannerQuery();
+
+
+        WorkBookSO workbook = new WorkBookSO();
+        workbook.setFileName(titleName);
+
+        while (true) {
+            query.setOffset(offset);
+            query.setRows(rows);
+            String sheetName = "第" + (sheetNum++) + "页";
+            List<SyBanner> syBannerList = syBannerService.queryListByParam(query);
+            if (CollectionUtils.isEmpty(syBannerList)) {
+                break;
+            }
+
+            ExcelSheetSO<SyBanner> sheetso = ExcelSheetSOBuilder.buildExcelSheetSO(24);
+            sheetso.setDatas(syBannerList);
+            sheetso.setColumnWidths(new int[]{
+                    40, 40, 40, 20, 20,
+                    20, 20, 20, 10, 20,
+                    20, 20, 10, 10, 10,
+                    20, 10, 20, 10, 20});
+
+            sheetso.setColumnNames(new String[]{
+                    "bannerId", "banner描述", "banner类型", "状态", "图片地址",
+                    "内容", "备注"});
+
+            sheetso.setFieldNames(new String[]{
+                    "id", "desc", "type", "status", "pic_url",
+                    "content", "remark"});
+
+            sheetso.setColumnTypes(new int[]{
+                    num, str, num, num, str,
+                    str, str});
+
+            sheetso.setTitleName(sheetName);
+            sheetso.setSheetName(sheetName);
+            workbook.addSheet(sheetso);
+
+            if (syBannerList.size() < rows) {
+                break;
+            }
+            offset += rows;
+        }
+
+        sw.stop();
+        exportExcel(workbook, response);
+    }
+
 
     @RequestMapping(value = "/detail")
     public String detail(@RequestParam(required = true, value = "id") Integer id, ModelMap model) {
@@ -531,5 +602,30 @@ public class BannerController {
             bizTypeList.add(cn);
         }
         modelMap.addAttribute("bizTypeList", bizTypeList);
+    }
+
+    private void exportExcel(WorkBookSO workbook,
+                             HttpServletResponse response) {
+        response.setContentType("application/vnd.ms-excel");
+        String codedFileName = null;
+        OutputStream fOut = null;
+        try {
+            codedFileName = new String(workbook.getFileName().getBytes("gb2312"), "iso8859-1");
+            response.setHeader("content-disposition", "attachment;filename=" + codedFileName + ".xls");
+            HSSFWorkbook hssworkbook = ExcelFileGenerator.createWorkbook(workbook);
+            fOut = response.getOutputStream();
+            hssworkbook.write(fOut);
+        } catch (Exception e) {
+            logger.warn("导出文件失败", e);
+        } finally {
+            try {
+                if (fOut != null) {
+                    fOut.flush();
+                    fOut.close();
+                }
+            } catch (IOException e) {
+                logger.warn("关闭流发生异常", e);
+            }
+        }
     }
 }
